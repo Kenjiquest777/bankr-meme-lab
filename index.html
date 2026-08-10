@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bankr Meme Lab</title>
+<style>
+  :root{
+    --bg:#0a0e0b; --panel:#101711; --panel2:#0d130e; --line:#1e2b20;
+    --acc:#7dfa8c; --acc-dim:#3f7d49; --txt:#d9e6db; --mut:#6f8273;
+    --danger:#fa7d7d;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg); color:var(--txt);
+    font-family:'SF Mono', ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    font-size:13px; line-height:1.45;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(125,250,140,.015) 0 1px, transparent 1px 3px);
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:14px 14px 40px;}
+  header{
+    display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1px solid var(--line); padding-bottom:10px; margin-bottom:12px;
+    flex-wrap:wrap; gap:6px;
+  }
+  h1{font-size:16px; letter-spacing:1px; color:var(--acc); font-weight:700; text-transform:lowercase;}
+  h1 .blink{animation:blink 1.2s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .sub{color:var(--mut); font-size:11px;}
+  .tabs{display:flex; gap:6px; margin-bottom:12px;}
+  .tab{
+    background:var(--panel2); border:1px solid var(--line); color:var(--mut);
+    padding:6px 14px; cursor:pointer; font-family:inherit; font-size:12px;
+    border-radius:3px; transition:all .15s;
+  }
+  .tab:hover{border-color:var(--acc-dim); color:var(--txt);}
+  .tab.on{background:var(--acc); color:#06210c; border-color:var(--acc); font-weight:700;}
+  .chips{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;}
+  .chip{
+    background:transparent; border:1px solid var(--line); color:var(--mut);
+    padding:3px 10px; font-size:11px; cursor:pointer; border-radius:99px;
+    font-family:inherit; transition:all .15s;
+  }
+  .chip:hover{border-color:var(--acc-dim); color:var(--txt);}
+  .chip.on{border-color:var(--acc); color:var(--acc);}
+  .stage{
+    background:var(--panel); border:1px solid var(--line); border-radius:6px;
+    padding:14px; margin-bottom:12px;
+  }
+  .fmt{
+    color:var(--acc); font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
+    margin-bottom:8px;
+  }
+  .fmt span{color:var(--mut); text-transform:none; letter-spacing:0; margin-left:8px;}
+  .imgbox{
+    background:#000; border:1px solid var(--line); border-radius:4px;
+    display:flex; align-items:center; justify-content:center;
+    min-height:200px; overflow:hidden; position:relative; margin-bottom:10px;
+  }
+  .imgbox img{max-width:100%; max-height:440px; display:block;}
+  .loading{color:var(--mut); font-size:12px; padding:40px 0; letter-spacing:1px;}
+  .fallback{padding:26px 20px; text-align:center;}
+  .fallback .fb-line{font-size:15px; font-weight:700; color:var(--txt); margin:5px 0; text-transform:uppercase;}
+  .fallback .fb-note{color:var(--mut); font-size:11px; margin-top:14px;}
+  .cap{
+    background:var(--panel2); border:1px solid var(--line); border-radius:4px;
+    padding:10px 12px; margin-bottom:10px; white-space:pre-wrap; font-size:12.5px;
+    color:var(--txt);
+  }
+  .btnrow{display:flex; flex-wrap:wrap; gap:6px;}
+  button.act{
+    background:var(--panel2); border:1px solid var(--acc-dim); color:var(--acc);
+    padding:7px 14px; cursor:pointer; font-family:inherit; font-size:12px;
+    border-radius:3px; transition:all .15s;
+  }
+  button.act:hover{background:var(--acc); color:#06210c; border-color:var(--acc);}
+  button.big{
+    width:100%; padding:12px; font-size:14px; font-weight:700;
+    background:var(--acc); color:#06210c; border:none; border-radius:4px;
+    cursor:pointer; font-family:inherit; letter-spacing:1px; margin-bottom:12px;
+    transition:transform .08s, filter .15s;
+  }
+  button.big:hover{filter:brightness(1.1);}
+  button.big:active{transform:scale(.985);}
+  .toast{
+    position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+    background:var(--acc); color:#06210c; padding:7px 16px; border-radius:3px;
+    font-size:12px; font-weight:700; opacity:0; pointer-events:none;
+    transition:opacity .2s; z-index:9;
+  }
+  .toast.show{opacity:1;}
+  label{display:block; color:var(--mut); font-size:11px; margin:10px 0 4px; text-transform:uppercase; letter-spacing:1px;}
+  select, input[type=text]{
+    width:100%; background:var(--panel2); border:1px solid var(--line); color:var(--txt);
+    padding:8px 10px; font-family:inherit; font-size:12.5px; border-radius:3px; outline:none;
+  }
+  select:focus, input:focus{border-color:var(--acc-dim);}
+  .hint{color:var(--mut); font-size:11px; margin-top:10px;}
+  .hide{display:none;}
+  @media(max-width:480px){ .wrap{padding:10px 8px 30px;} h1{font-size:14px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>bankr meme lab<span class="blink">_</span></h1>
+    <div class="sub">$BNKR · base agentic economy · post-ready</div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" id="tabRandom">random drop</button>
+    <button class="tab" id="tabCustom">custom builder</button>
+  </div>
+
+  <div id="viewRandom">
+    <div class="chips" id="chips"></div>
+    <button class="big" id="genBtn">▸ drop a meme</button>
+    <div class="stage hide" id="stage">
+      <div class="fmt" id="fmtName"></div>
+      <div class="imgbox" id="imgbox"><div class="loading">rendering...</div></div>
+      <div class="cap" id="capText"></div>
+      <div class="btnrow">
+        <button class="act" id="copyCap">copy caption</button>
+        <button class="act" id="copyUrl">copy image link</button>
+        <button class="act" id="openFull">open full size</button>
+        <button class="act" id="remix">remix in chat</button>
+      </div>
+    </div>
+    <div class="hint">tip: filter by topic, then keep hitting drop — pool never repeats back-to-back.</div>
+  </div>
+
+  <div id="viewCustom" class="hide">
+    <div class="stage">
+      <label>template</label>
+      <select id="tplSel"></select>
+      <div id="slotInputs"></div>
+      <label>&nbsp;</label>
+      <button class="big" id="renderBtn" style="margin-bottom:0">▸ render meme</button>
+    </div>
+    <div class="stage hide" id="cstage">
+      <div class="fmt" id="cfmtName"></div>
+      <div class="imgbox" id="cimgbox"></div>
+      <div class="btnrow">
+        <button class="act" id="ccopyUrl">copy image link</button>
+        <button class="act" id="copenFull">open full size</button>
+      </div>
+    </div>
+    <div class="hint">? &amp; % # / are handled automatically. leave a slot blank to skip it.</div>
+  </div>
+</div>
+<div class="toast" id="toast">copied</div>
+
+<script>
+(function(){
+  var API = 'https://api.memegen.link/images/';
+  var BOTBG = 'https://unavatar.io/twitter/bankrbot';
+
+  // ---- curated BANKR meme pool ----
+  // t: memegen template id, f: format label, tags: topics, l: text slots
+  var POOL = [
+    {t:'drake', f:'drake', tags:['one-liner'], l:['clicking through 5 dapps to swap on base','typing "swap 50 to bnkr" and going back to sleep']},
+    {t:'drake', f:'drake', tags:['agent life'], l:['watching charts until 4am','your agent watches them so you dont have to']},
+    {t:'drake', f:'drake', tags:['deploys'], l:['hiring a dev to launch your token','telling bankr the ticker']},
+    {t:'db', f:'distracted boyfriend', tags:['agent life'], l:['a chat box that trades','me','my 5 dapp tabs']},
+    {t:'gru', f:'gru\'s plan', tags:['volatility'], l:['let the agent handle the trades','it executes perfectly','now i have no one to blame for my entries','now i have no one to blame for my entries']},
+    {t:'mordor', f:'one does not simply', tags:['deploys'], l:['one does not simply','deploy a token... unless you just type it']},
+    {t:'fine', f:'this is fine', tags:['volatility'], l:['portfolio down 40% overnight','this is fine. the agent has a plan']},
+    {t:'pigeon', f:'is this a pigeon?', tags:['normies'], l:['normies','a chat box','is this a dapp?']},
+    {t:'rollsafe', f:'roll safe', tags:['one-liner'], l:['cant fat-finger a trade','if you just type it in plain english']},
+    {t:'buzz', f:'buzz lightyear', tags:['agent life'], l:['agents','agents everywhere on base']},
+    {t:'spongebob', f:'mocking spongebob', tags:['normies'], l:['i like managing 5 dapps myself','i LiKe MaNaGiNg 5 dApPs MySeLf']},
+    {t:'doge', f:'doge', tags:['agent life'], l:['such agent','very onchain','much bnkr','wow']},
+    {t:'morpheus', f:'morpheus', tags:['one-liner'], l:['what if i told you','you can trade by typing a sentence']},
+    {t:'success', f:'success kid', tags:['deploys'], l:['typed one sentence','token deployed']},
+    {t:'philosoraptor', f:'philosoraptor', tags:['agent life'], l:['if agents trade for us','who watches the charts?']},
+    {t:'disastergirl', f:'disaster girl', tags:['normies'], l:['me smiling at','my old wallet ux burning down']},
+    {t:'oprah', f:'oprah', tags:['agent life'], l:['you get an agent','everybody gets an agent']},
+    {t:'stonks', f:'stonks', tags:['volatility'], l:['bought the dip','it dipped again. stonks']},
+    {t:'panik-kalm-panik', f:'panik kalm panik', tags:['volatility'], l:['gas spikes mid-deploy','bankr sponsored the deploy','you remember your other bags']},
+    {t:'woman-cat', f:'woman yelling at cat', tags:['normies'], l:['you cant just type trades at a robot','me typing trades at a robot']},
+    {t:'astronaut', f:'always has been', tags:['one-liner'], l:['wait, its all one sentence?','always has been']},
+    {t:'harold', f:'hide the pain harold', tags:['volatility'], l:['comparing my manual trades','to my agents trades']},
+    {t:'grumpycat', f:'grumpy cat', tags:['normies'], l:['i used a dapp once','it was awful']},
+    {t:'wonka', f:'condescending wonka', tags:['normies'], l:['oh, you click through dapps?','tell me more about the seed phrase in your notes app']},
+    {t:'yodawg', f:'yo dawg', tags:['agent life'], l:['yo dawg i heard you like agents','so we got an agent to run your agents']},
+    {t:'joker', f:'joker', tags:['club'], l:['nobody panics when normies click buttons','but one agent types a trade and everyone loses their minds']},
+    {t:'leo', f:'leo cheers', tags:['club'], l:['to everyone who held bnkr','through the chop']},
+    {t:'dwight', f:'dwight schrute', tags:['one-liner'], l:['false. you dont need 5 dapps','you need one sentence']},
+    {t:'cmm', f:'change my mind', tags:['club'], l:['bankr runs the base agentic economy. change my mind']},
+    {t:'morpheus', f:'morpheus', tags:['deploys'], l:['what if i told you','the deploy was gas sponsored']},
+    {t:'fine', f:'this is fine', tags:['normies'], l:['12 approval popups deep in a dapp','this is fine. this is decentralization']},
+    {t:'success', f:'success kid', tags:['club'], l:['joined bankr club','agent claims fees while i sleep']},
+    {t:'astronaut', f:'always has been', tags:['lore','ham & mfers'], l:['wait, the bankr deployer is the ham guy?','always has been']},
+    {t:'morpheus', f:'morpheus', tags:['lore','ham & mfers'], l:['what if i told you','tn100x meant the next 100x all along']},
+    {t:'doge', f:'doge', tags:['ham & mfers'], l:['such ham','very lp rewards','much tn100x','wow']},
+    {t:'drake', f:'drake', tags:['ham & mfers'], l:['40 page whitepaper and a 5 year roadmap','a stick figure smoking a cig']},
+    {t:'cmm', f:'change my mind', tags:['ham & mfers'], l:['we are all mfers, even the agents. change my mind']},
+    {t:'success', f:'success kid', tags:['ham & mfers'], l:['held mfers through the bear','now my agent buys the dips']},
+    {t:'leo', f:'leo cheers', tags:['lore'], l:['to deployer','shipping while the timeline argues']},
+    {t:'yodawg', f:'yo dawg', tags:['lore'], l:['yo dawg deployer heard you like deploying','so he built an agent that deploys while you sleep']},
+    {t:'rollsafe', f:'roll safe', tags:['lore'], l:['never miss a launch','if the agent that launched it dms you the link']},
+    {t:'buzz', f:'buzz lightyear', tags:['lore','ham & mfers'], l:['ham lore','ham lore everywhere']},
+    {t:'joker', f:'joker', tags:['beef & fud'], l:['nobody panics at a vc agent roadmap','but bankr ships one feature and the timeline loses its mind']},
+    {t:'woman-cat', f:'woman yelling at cat', tags:['beef & fud'], l:['virtuals accounts announcing bankr is over','bankr quietly clearing another 10k swaps']},
+    {t:'spongebob', f:'mocking spongebob', tags:['beef & fud'], l:['bankr is dead this time for real','bAnKr Is DeAd ThIs TiMe FoR rEaL']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud'], l:['false. fud never killed a shipping agent','it just made the bottom cheaper']},
+    {t:'gru', f:'gru\'s plan', tags:['beef & fud'], l:['start beef with bankr for engagement','quote tweet the fud all week','bankr ships through it and your thread becomes the bottom signal','your thread becomes the bottom signal']},
+    {t:'fine', f:'this is fine', tags:['beef & fud'], l:['40 fud threads on the timeline','this is fine. the agent is still shipping']},
+    {t:'disastergirl', f:'disaster girl', tags:['beef & fud'], l:['bankr community watching','the fud threads age like milk']},
+    {t:'mordor', f:'one does not simply', tags:['wars'], l:['one does not simply','pick a launcher without starting a war on the timeline']},
+    {t:'fine', f:'this is fine', tags:['wars'], l:['uniswap fee discourse round 47','this is fine. i type one sentence either way']},
+    {t:'drake', f:'drake', tags:['wars'], l:['arguing about which launcher is evil','letting the agent route around the drama']},
+    {t:'philosoraptor', f:'philosoraptor', tags:['wars'], l:['if every launcher is at war','is the winner just whoever keeps shipping?']},
+    {t:'pigeon', f:'is this a pigeon?', tags:['wars'], l:['ct during launcher wars','literally any new venue','is this the war to end all launchers?']},
+    {t:'astronaut', f:'always has been', tags:['base'], l:['wait, base is an agent economy?','always has been']},
+    {t:'oprah', f:'oprah', tags:['base'], l:['you get onchain, you get onchain','everybody on base gets onchain']},
+    {t:'stonks', f:'stonks', tags:['base'], l:['let the agents do the clicking','base szn. stonks']},
+    {t:'morpheus', f:'morpheus', tags:['base'], l:['what if i told you','the most based agent lives on base']},
+    {t:'midwit', f:'mid curve', tags:['mid curve','wojak'], l:['just type the trade','nooo you need 12 indicators and 5 dapps','just type the trade']},
+    {t:'midwit', f:'mid curve', tags:['mid curve','wojak'], l:['buy bnkr','wait for confluence on the 4h rsi divergence','buy bnkr']},
+    {t:'midwit', f:'mid curve', tags:['mid curve','agent life'], l:['let the agent handle it','i must watch every candle myself','let the agent handle it']},
+    {t:'gb', f:'galaxy brain', tags:['mid curve','agent life'], l:['trading manually','using a trading bot','running an ai agent','typing one sentence to bankr']},
+    {t:'gb', f:'galaxy brain', tags:['mid curve','deploys'], l:['hiring a dev team to launch','using a launchpad ui','deploying from a tweet','gas sponsored deploy from one sentence']},
+    {t:'sadfrog', f:'wojak feels', tags:['wojak','volatility'], l:['watched the bnkr pump from the sidelines','feels bad man']},
+    {t:'sadfrog', f:'wojak feels', tags:['wojak'], l:['bro just said its over','it was never over. the agent bought the dip']},
+    {t:'feelsgood', f:'feels good man', tags:['wojak','agent life'], l:['agent filled my limit order while i slept','feels good man']},
+    {t:'cryingfloor', f:'crying wojak hours', tags:['wojak','volatility'], l:['closed the chart app to feel something','the agent kept printing anyway']},
+    {t:'astronaut', f:'always has been', tags:['bankr bish'], l:['wait, its bankr bish now?','always has been']},
+    {t:'morpheus', f:'morpheus', tags:['bankr bish'], l:['what if i told you','its bankr, bish']},
+    {t:'cmm', f:'change my mind', tags:['bankr bish'], l:['its pronounced bankr, bish. change my mind']},
+    {t:'success', f:'success kid', tags:['bankr bish','base'], l:['coins launched through bankr crossed 5 billion','its bankr bish']},
+    {t:'leo', f:'leo cheers', tags:['bankr bish','club'], l:['to being back with a capital b','five bs to be exact, bankr bish']},
+    {t:'custom', f:'bankr bot', tags:['bankr bot'], bg:BOTBG, l:['gm','your trades are already done']},
+    {t:'custom', f:'bankr bot', tags:['bankr bot'], bg:BOTBG, l:['one sentence in','onchain out']},
+    {t:'custom', f:'bankr bot', tags:['bankr bot','bankr bish'], bg:BOTBG, l:['we are back','its bankr bish']},
+    {t:'custom', f:'bankr bot', tags:['bankr bot','base'], bg:BOTBG, l:['the agent economy runs on base','and the agents run on bankr']},
+    {t:'pigeon', f:'is this a pigeon?', tags:['agent life'], l:['ct in 2026','anything with a wallet','is this an agent?']},
+    {t:'drake', f:'drake', tags:['base','agent life'], l:['trading stocks in an app that closes at 4pm','tokenized stocks onchain, agent never sleeps']}
+  ];
+
+  var TAGS = ['all','wojak','mid curve','bankr bish','bankr bot','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud','wars','base'];
+
+  // custom builder templates: id -> [label, slotCount]
+  var TPLS = [
+    ['drake','drake',2], ['db','distracted boyfriend',3], ['gru','gru\'s plan',4],
+    ['fine','this is fine',2], ['stonks','stonks',2], ['pigeon','is this a pigeon?',3],
+    ['mordor','one does not simply',2], ['morpheus','morpheus',2], ['doge','doge',4],
+    ['spongebob','mocking spongebob',2], ['oprah','oprah',2], ['buzz','buzz lightyear',2],
+    ['rollsafe','roll safe',2], ['success','success kid',2], ['philosoraptor','philosoraptor',2],
+    ['cmm','change my mind',1], ['panik-kalm-panik','panik kalm panik',3],
+    ['woman-cat','woman yelling at cat',2], ['yodawg','yo dawg',2], ['wonka','condescending wonka',2],
+    ['harold','hide the pain harold',2], ['grumpycat','grumpy cat',2], ['joker','joker',2],
+    ['astronaut','always has been',2], ['disastergirl','disaster girl',2], ['sadfrog','sad frog / wojak feels',2],
+    ['midwit','mid curve (midwit)',3], ['gb','galaxy brain',4], ['feelsgood','feels good man',2], ['cryingfloor','crying wojak',2]
+  ];
+
+  function enc(t){
+    if(!t || !t.trim()) return '_';
+    return t.trim()
+      .replace(/_/g,'__').replace(/-/g,'--')
+      .replace(/\?/g,'~q').replace(/&/g,'~a').replace(/%/g,'~p')
+      .replace(/#/g,'~h').replace(/\//g,'~s').replace(/\\/g,'~b')
+      .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
+  }
+  function memeUrl(tpl, lines, w, bg){
+    var u = API + tpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700);
+    if (bg) u += '&background=' + encodeURIComponent(bg);
+    return u;
+  }
+  function toast(msg){
+    var el = document.getElementById('toast');
+    el.textContent = msg; el.classList.add('show');
+    setTimeout(function(){ el.classList.remove('show'); }, 1400);
+  }
+  function copyText(txt){
+    var done = function(){ toast('copied'); };
+    if (window.bankr && bankr.copy) { bankr.copy(txt).then(done).catch(function(){ fallbackCopy(txt); done(); }); }
+    else { fallbackCopy(txt); done(); }
+  }
+  function fallbackCopy(txt){
+    try { navigator.clipboard.writeText(txt); } catch(e){
+      var ta = document.createElement('textarea'); ta.value = txt;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); }catch(_){}
+      document.body.removeChild(ta);
+    }
+  }
+  function openUrl(u){
+    if (window.bankr && bankr.openExternal) bankr.openExternal(u);
+    else window.open(u, '_blank');
+  }
+
+  // ---- random drop ----
+  var activeTag = 'all', lastIdx = -1, current = null;
+
+  var chipsEl = document.getElementById('chips');
+  TAGS.forEach(function(tag){
+    var b = document.createElement('button');
+    b.className = 'chip' + (tag==='all' ? ' on' : '');
+    b.textContent = tag;
+    b.onclick = function(){
+      activeTag = tag;
+      Array.prototype.forEach.call(chipsEl.children, function(c){ c.classList.remove('on'); });
+      b.classList.add('on');
+    };
+    chipsEl.appendChild(b);
+  });
+
+  function pickMeme(){
+    var pool = POOL.map(function(m,i){ return {m:m, i:i}; })
+      .filter(function(x){ return activeTag==='all' || x.m.tags.indexOf(activeTag) >= 0; });
+    if (!pool.length) pool = POOL.map(function(m,i){ return {m:m, i:i}; });
+    var candidates = pool.filter(function(x){ return x.i !== lastIdx; });
+    if (!candidates.length) candidates = pool;
+    var pick = candidates[Math.floor(Math.random()*candidates.length)];
+    lastIdx = pick.i;
+    return pick.m;
+  }
+
+  function showMeme(m){
+    current = { meme: m, url: memeUrl(m.t, m.l, 700, m.bg) };
+    document.getElementById('stage').classList.remove('hide');
+    document.getElementById('fmtName').innerHTML = m.f + '<span>· ' + m.tags.join(', ') + '</span>';
+    document.getElementById('capText').textContent = m.l.map(function(x){ return x.toUpperCase(); }).join('\n');
+    renderImg(document.getElementById('imgbox'), current.url, m.l);
+  }
+
+  function renderImg(box, url, lines){
+    box.innerHTML = '<div class="loading">rendering...</div>';
+    var img = new Image();
+    img.onload = function(){ box.innerHTML = ''; box.appendChild(img); };
+    img.onerror = function(){
+      var fb = document.createElement('div');
+      fb.className = 'fallback';
+      fb.innerHTML = lines.map(function(x){
+        var d = document.createElement('div');
+        d.textContent = x;
+        return '<div class="fb-line">' + d.innerHTML.toUpperCase() + '</div>';
+      }).join('') + '<div class="fb-note">image preview blocked here — use "copy image link" or "open full size", the meme URL works everywhere</div>';
+      box.innerHTML = ''; box.appendChild(fb);
+    };
+    img.src = url;
+  }
+
+  document.getElementById('genBtn').onclick = function(){ showMeme(pickMeme()); };
+  document.getElementById('copyCap').onclick = function(){
+    if (!current) return;
+    copyText(current.meme.f + '\n' + current.meme.l.map(function(x){ return x.toUpperCase(); }).join('\n'));
+  };
+  document.getElementById('copyUrl').onclick = function(){ if (current) copyText(current.url); };
+  document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t, current.meme.l, 1000, current.meme.bg)); };
+  document.getElementById('remix').onclick = function(){
+    var topic = activeTag === 'all' ? '' : ' about ' + activeTag;
+    if (window.bankr && bankr.prefillChat) bankr.prefillChat('make me a BANKR meme' + topic);
+  };
+
+  // ---- custom builder ----
+  var tplSel = document.getElementById('tplSel');
+  TPLS.forEach(function(t){
+    var o = document.createElement('option');
+    o.value = t[0]; o.textContent = t[1] + ' (' + t[2] + (t[2]===1?' line)':' lines)');
+    tplSel.appendChild(o);
+  });
+  function buildSlots(){
+    var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
+    var n = def ? def[2] : 2;
+    var host = document.getElementById('slotInputs');
+    host.innerHTML = '';
+    for (var i = 0; i < n; i++){
+      var lb = document.createElement('label'); lb.textContent = 'line ' + (i+1);
+      var inp = document.createElement('input'); inp.type = 'text'; inp.maxLength = 100;
+      inp.placeholder = i === 0 ? 'top text...' : 'line ' + (i+1) + ' text...';
+      inp.dataset.slot = i;
+      host.appendChild(lb); host.appendChild(inp);
+    }
+  }
+  tplSel.onchange = buildSlots;
+  buildSlots();
+
+  var customUrl = null;
+  document.getElementById('renderBtn').onclick = function(){
+    var lines = Array.prototype.map.call(
+      document.querySelectorAll('#slotInputs input'),
+      function(i){ return i.value; }
+    );
+    if (!lines.some(function(x){ return x && x.trim(); })) { toast('type something first'); return; }
+    var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
+    customUrl = memeUrl(tplSel.value, lines, 700);
+    document.getElementById('cstage').classList.remove('hide');
+    document.getElementById('cfmtName').textContent = def ? def[1] : tplSel.value;
+    renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim(); }));
+  };
+  document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
+  document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl.replace('width=700','width=1000')); };
+
+  // ---- tabs ----
+  var tabR = document.getElementById('tabRandom'), tabC = document.getElementById('tabCustom');
+  tabR.onclick = function(){
+    tabR.classList.add('on'); tabC.classList.remove('on');
+    document.getElementById('viewRandom').classList.remove('hide');
+    document.getElementById('viewCustom').classList.add('hide');
+  };
+  tabC.onclick = function(){
+    tabC.classList.add('on'); tabR.classList.remove('on');
+    document.getElementById('viewCustom').classList.remove('hide');
+    document.getElementById('viewRandom').classList.add('hide');
+  };
+
+  // first paint: drop one immediately
+  if (window.bankr && bankr.on) {
+    bankr.on('ready', function(){ showMeme(pickMeme()); });
+    // in case ready already fired
+    setTimeout(function(){ if (!current) showMeme(pickMeme()); }, 600);
+  } else {
+    showMeme(pickMeme());
+  }
+})();
+</script>
+</body>
+</html>
