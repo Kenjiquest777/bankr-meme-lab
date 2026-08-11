@@ -156,6 +156,7 @@
 (function(){
   var API = 'https://api.memegen.link/images/';
   var BOTBG = 'https://unavatar.io/twitter/bankrbot';
+  var ARISTOCRAT_BG = 'https://raw.githubusercontent.com/Kenjiquest777/bankr-meme-lab/Images/Aristocrat.jpg';
 
   // ---- curated BANKR meme pool ----
   // t: memegen template id, f: format label, tags: topics, l: text slots
@@ -273,13 +274,19 @@
     {t:'joker', f:'joker', tags:['base'], l:['other projects talk about agents','bankr actually runs base']},
     {t:'custom', f:'bankr bot', tags:['bankr bot','base'], bg:BOTBG, l:['bankr runs base','gm to all the agents']},
     {t:'custom', f:'bankr bot', tags:['bankr bot','0xDeployer'], bg:BOTBG, l:['@0xDeployer shipped again','time to build']},
-    {t:'custom', f:'bankr bot', tags:['bankr bot','just make things'], bg:BOTBG, l:['please bros','you can just make things']}
+    {t:'custom', f:'bankr bot', tags:['bankr bot','just make things'], bg:BOTBG, l:['please bros','you can just make things']},
+    // --- Custom Aristocrat Image Memes ---
+    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','club','mid curve','bankr bish'], bg:ARISTOCRAT_BG, l:['_','bankr club members watching normies approve 12 dapp popups']},
+    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','normies','one-liner'], bg:ARISTOCRAT_BG, l:['_','looking down at plebs manually clicking through 5 dapps']},
+    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','2025/2026','agent life'], bg:ARISTOCRAT_BG, l:['_','watching people trade without an autonomous agent in 2026']},
+    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','just make things'], bg:ARISTOCRAT_BG, l:['_','signature look of superiority when you just make things']}
   ];
 
-  var TAGS = ['all','just make things','0xDeployer','2025/2026','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud','wars'];
+  var TAGS = ['all','aristocrats','just make things','0xDeployer','2025/2026','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud','wars'];
 
   // custom builder templates: id -> [label, slotCount]
   var TPLS = [
+    ['aristocrat','aristocrats looking down (custom image)',2],
     ['drake','drake',2], ['db','distracted boyfriend',3], ['gru','gru\'s plan',4],
     ['fine','this is fine',2], ['stonks','stonks',2], ['pigeon','is this a pigeon?',3],
     ['mordor','one does not simply',2], ['morpheus','morpheus',2], ['doge','doge',4],
@@ -301,8 +308,10 @@
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
   function memeUrl(tpl, lines, w, bg){
-    var u = API + tpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700);
-    if (bg) u += '&background=' + encodeURIComponent(bg);
+    var targetTpl = tpl === 'aristocrat' ? 'custom' : tpl;
+    var targetBg = bg || (tpl === 'aristocrat' ? ARISTOCRAT_BG : null);
+    var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700);
+    if (targetBg) u += '&background=' + encodeURIComponent(targetBg);
     return u;
   }
   function toast(msg){
@@ -359,7 +368,8 @@
     current = { meme: m, url: memeUrl(m.t, m.l, 700, m.bg) };
     document.getElementById('stage').classList.remove('hide');
     document.getElementById('fmtName').innerHTML = m.f + '<span>· ' + m.tags.join(', ') + '</span>';
-    document.getElementById('capText').textContent = m.l.map(function(x){ return x.toUpperCase(); }).join('\n');
+    var textLines = m.l.filter(function(x){ return x && x !== '_'; }).map(function(x){ return x.toUpperCase(); });
+    document.getElementById('capText').textContent = textLines.join('\n');
     renderImg(document.getElementById('imgbox'), current.url, m.l);
   }
 
@@ -370,7 +380,8 @@
     img.onerror = function(){
       var fb = document.createElement('div');
       fb.className = 'fallback';
-      fb.innerHTML = lines.map(function(x){
+      var textLines = lines.filter(function(x){ return x && x !== '_'; });
+      fb.innerHTML = textLines.map(function(x){
         var d = document.createElement('div');
         d.textContent = x;
         return '<div class="fb-line">' + d.innerHTML.toUpperCase() + '</div>';
@@ -383,7 +394,8 @@
   document.getElementById('genBtn').onclick = function(){ showMeme(pickMeme()); };
   document.getElementById('copyCap').onclick = function(){
     if (!current) return;
-    copyText(current.meme.f + '\n' + current.meme.l.map(function(x){ return x.toUpperCase(); }).join('\n'));
+    var textLines = current.meme.l.filter(function(x){ return x && x !== '_'; }).map(function(x){ return x.toUpperCase(); });
+    copyText(current.meme.f + '\n' + textLines.join('\n'));
   };
   document.getElementById('copyUrl').onclick = function(){ if (current) copyText(current.url); };
   document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t, current.meme.l, 1000, current.meme.bg)); };
@@ -405,9 +417,10 @@
     var host = document.getElementById('slotInputs');
     host.innerHTML = '';
     for (var i = 0; i < n; i++){
-      var lb = document.createElement('label'); lb.textContent = 'line ' + (i+1);
+      var lb = document.createElement('label');
+      lb.textContent = (tplSel.value === 'aristocrat' && i === 0) ? 'top text (optional, leave blank for bottom-only)' : ('line ' + (i+1));
       var inp = document.createElement('input'); inp.type = 'text'; inp.maxLength = 100;
-      inp.placeholder = i === 0 ? 'top text...' : 'line ' + (i+1) + ' text...';
+      inp.placeholder = i === 0 ? (tplSel.value === 'aristocrat' ? 'leave blank for bottom-only text...' : 'top text...') : 'bottom text...';
       inp.dataset.slot = i;
       host.appendChild(lb); host.appendChild(inp);
     }
@@ -419,14 +432,14 @@
   document.getElementById('renderBtn').onclick = function(){
     var lines = Array.prototype.map.call(
       document.querySelectorAll('#slotInputs input'),
-      function(i){ return i.value; }
+      function(i){ return i.value || '_'; }
     );
-    if (!lines.some(function(x){ return x && x.trim(); })) { toast('type something first'); return; }
+    if (!lines.some(function(x){ return x && x.trim() && x !== '_'; })) { toast('type something first'); return; }
     var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
     customUrl = memeUrl(tplSel.value, lines, 700);
     document.getElementById('cstage').classList.remove('hide');
     document.getElementById('cfmtName').textContent = def ? def[1] : tplSel.value;
-    renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim(); }));
+    renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
   };
   document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
   document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl.replace('width=700','width=1000')); };
