@@ -300,7 +300,7 @@
   ];
 
   function enc(t){
-    if(!t || !t.trim()) return '_';
+    if(!t || !t.trim() || t.trim() === '_') return '_';
     return t.trim()
       .replace(/_/g,'__').replace(/-/g,'--')
       .replace(/\?/g,'~q').replace(/&/g,'~a').replace(/%/g,'~p')
@@ -432,7 +432,7 @@
   document.getElementById('renderBtn').onclick = function(){
     var lines = Array.prototype.map.call(
       document.querySelectorAll('#slotInputs input'),
-      function(i){ return i.value || '_'; }
+      function(i){ return (i.value && i.value.trim()) ? i.value.trim() : '_'; }
     );
     if (!lines.some(function(x){ return x && x.trim() && x !== '_'; })) { toast('type something first'); return; }
     var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
