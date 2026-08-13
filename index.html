@@ -156,10 +156,16 @@
 (function(){
   var API = 'https://api.memegen.link/images/';
   var BOTBG = 'https://unavatar.io/twitter/bankrbot';
-  var ARISTOCRAT_BG = 'https://raw.githubusercontent.com/Kenjiquest777/bankr-meme-lab/Images/Aristocrat.jpg';
+  var GH_BASE = 'https://raw.githubusercontent.com/Kenjiquest777/bankr-meme-lab/main/Images/';
+
+  var ARISTOCRAT_BG = GH_BASE + 'Aristocrat.jpg';
+  var ANAKIN_BG = GH_BASE + 'Anakin%20Princess.png';
+  var BERNIE_BG = GH_BASE + 'Bernie-I-Am-Once-Again-Asking-For-Your-Support.jpg';
+  var CONSPIRACY_BG = GH_BASE + 'Conspiracy%20Meme.jpg';
+  var GENSLER_BG = GH_BASE + 'Gensler.jpg';
+  var BUTTONS_BG = GH_BASE + 'Two-Buttons.jpg';
 
   // ---- curated BANKR meme pool ----
-  // t: memegen template id, f: format label, tags: topics, l: text slots
   var POOL = [
     {t:'drake', f:'drake', tags:['one-liner'], l:['clicking through 5 dapps to swap on base','typing "swap 50 to bnkr" and going back to sleep']},
     {t:'drake', f:'drake', tags:['agent life'], l:['watching charts until 4am','your agent watches them so you dont have to']},
@@ -239,7 +245,6 @@
     {t:'custom', f:'bankr bot', tags:['bankr bot','base'], bg:BOTBG, l:['the agent economy runs on base','and the agents run on bankr']},
     {t:'pigeon', f:'is this a pigeon?', tags:['agent life'], l:['ct in 2026','anything with a wallet','is this an agent?']},
     {t:'drake', f:'drake', tags:['base','agent life'], l:['trading stocks in an app that closes at 4pm','tokenized stocks onchain, agent never sleeps']},
-    // --- Please Bros / You Can Just Make Things ---
     {t:'drake', f:'drake', tags:['just make things','one-liner'], l:['waiting 6 months for a dev team roadmap','please bros, you can just make things']},
     {t:'cmm', f:'change my mind', tags:['just make things','0xDeployer'], l:['please bros, you can just make things. change my mind']},
     {t:'morpheus', f:'morpheus', tags:['just make things'], l:['what if i told you','you can just make things']},
@@ -248,7 +253,6 @@
     {t:'doge', f:'doge', tags:['just make things'], l:['such build','very make things','much bro','wow']},
     {t:'woman-cat', f:'woman yelling at cat', tags:['just make things'], l:['you need a whitepaper and pitch deck!','please bros, you can just make things']},
     {t:'success', f:'success kid', tags:['just make things'], l:['typed one prompt','app built in 20 seconds. you can just make things']},
-    // --- Deployer (@0xDeployer) Memes ---
     {t:'leo', f:'leo cheers', tags:['0xDeployer','lore'], l:['to @0xDeployer','shipping while the timeline argues']},
     {t:'yodawg', f:'yo dawg', tags:['0xDeployer','deploys'], l:['yo dawg @0xDeployer heard you like shipping','so he built an agent that ships for you']},
     {t:'astronaut', f:'always has been', tags:['0xDeployer','base'], l:['wait, @0xDeployer is building the agent economy?','always has been']},
@@ -256,7 +260,6 @@
     {t:'mordor', f:'one does not simply', tags:['0xDeployer'], l:['one does not simply','scroll past a @0xDeployer shipping update']},
     {t:'gru', f:'gru\'s plan', tags:['0xDeployer'], l:['check @0xDeployer on x','he dropped a new feature','realize your agent already built an app with it','realize your agent already built an app with it']},
     {t:'midwit', f:'mid curve', tags:['0xDeployer','mid curve'], l:['just let deployer cook','nooo you need a 50 page tokenomics PDF','just let deployer cook']},
-    // --- 2025 & 2026 Fresh Memes ---
     {t:'pigeon', f:'is this a pigeon?', tags:['2025/2026','agent life'], l:['crypto twitter in 2025','an autonomous agent trading on base','is this financial freedom?']},
     {t:'drake', f:'drake', tags:['2025/2026','base'], l:['2024 manual DEX trading','2026 autonomous agent economy on Base']},
     {t:'midwit', f:'mid curve', tags:['2025/2026','agent life'], l:['just type trades','nooo 2025 agent meta is too complex!','just type trades']},
@@ -264,7 +267,6 @@
     {t:'stonks', f:'stonks', tags:['2025/2026','volatility'], l:['agents trading 24/7 in 2026 while you sleep','stonks']},
     {t:'wonka', f:'condescending wonka', tags:['2025/2026','normies'], l:['oh, you manually swapped tokens in 2024?','tell me more about ancient history']},
     {t:'harold', f:'hide the pain harold', tags:['2025/2026','normies'], l:['explaining to my family in 2026','that my AI agent manages my crypto portfolio']},
-    // --- Bankr Runs Base & Crypto Topics ---
     {t:'cmm', f:'change my mind', tags:['base','bankr bish'], l:['bankr runs base. change my mind']},
     {t:'astronaut', f:'always has been', tags:['base','one-liner'], l:['wait, bankr runs the base agent economy?','always has been']},
     {t:'oprah', f:'oprah', tags:['base','agent life'], l:['bankr runs base','and everybody gets an agent']},
@@ -275,28 +277,35 @@
     {t:'custom', f:'bankr bot', tags:['bankr bot','base'], bg:BOTBG, l:['bankr runs base','gm to all the agents']},
     {t:'custom', f:'bankr bot', tags:['bankr bot','0xDeployer'], bg:BOTBG, l:['@0xDeployer shipped again','time to build']},
     {t:'custom', f:'bankr bot', tags:['bankr bot','just make things'], bg:BOTBG, l:['please bros','you can just make things']},
-    // --- Custom Aristocrat Image Memes ---
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','club','mid curve','bankr bish'], bg:ARISTOCRAT_BG, l:['_','bankr club members watching normies approve 12 dapp popups']},
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','normies','one-liner'], bg:ARISTOCRAT_BG, l:['_','looking down at plebs manually clicking through 5 dapps']},
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','2025/2026','agent life'], bg:ARISTOCRAT_BG, l:['_','watching people trade without an autonomous agent in 2026']},
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','just make things'], bg:ARISTOCRAT_BG, l:['_','signature look of superiority when you just make things']}
+    // --- Custom Image Memes from Git ---
+    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','club','mid curve'], bg:ARISTOCRAT_BG, l:['top comment','bottom comment']},
+    {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['panel 1 bottom','panel 2 bottom','panel 3 bottom','panel 4 bottom']},
+    {t:'custom', f:'bernie sanders support', tags:['bernie','club'], bg:BERNIE_BG, l:['_','i am once again asking for your support']},
+    {t:'custom', f:'conspiracy meme', tags:['conspiracy','beef & fud'], bg:CONSPIRACY_BG, l:['top conspiracy text','bottom conspiracy text']},
+    {t:'custom', f:'gary gensler', tags:['gensler','normies'], bg:GENSLER_BG, l:['_','gary gensler bottom comment']},
+    {t:'custom', f:'two buttons meme', tags:['two buttons','agent life'], bg:BUTTONS_BG, l:['button 1 text','button 2 text','sweating guy text']}
   ];
 
-  var TAGS = ['all','aristocrats','just make things','0xDeployer','2025/2026','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud','wars'];
+  var TAGS = ['all','aristocrats','star wars','bernie','conspiracy','gensler','two buttons','just make things','0xDeployer','2025/2026','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud','wars'];
 
-  // custom builder templates: id -> [label, slotCount]
+  // custom builder templates: id -> [label, slotCount, optionalBg]
   var TPLS = [
-    ['aristocrat','aristocrats looking down (custom image)',2],
-    ['drake','drake',2], ['db','distracted boyfriend',3], ['gru','gru\'s plan',4],
-    ['fine','this is fine',2], ['stonks','stonks',2], ['pigeon','is this a pigeon?',3],
-    ['mordor','one does not simply',2], ['morpheus','morpheus',2], ['doge','doge',4],
-    ['spongebob','mocking spongebob',2], ['oprah','oprah',2], ['buzz','buzz lightyear',2],
-    ['rollsafe','roll safe',2], ['success','success kid',2], ['philosoraptor','philosoraptor',2],
-    ['cmm','change my mind',1], ['panik-kalm-panik','panik kalm panik',3],
-    ['woman-cat','woman yelling at cat',2], ['yodawg','yo dawg',2], ['wonka','condescending wonka',2],
-    ['harold','hide the pain harold',2], ['grumpycat','grumpy cat',2], ['joker','joker',2],
-    ['astronaut','always has been',2], ['disastergirl','disaster girl',2], ['sadfrog','sad frog / wojak feels',2],
-    ['midwit','mid curve (midwit)',3], ['gb','galaxy brain',4], ['feelsgood','feels good man',2], ['cryingfloor','crying wojak',2]
+    ['aristocrat','Aristocrat (Top & Bottom Comments)',2,ARISTOCRAT_BG],
+    ['anakin_custom','Star Wars Anakin (4 Panel Bottom Comments)',4,null],
+    ['bernie_custom','Bernie Sanders Support (Under Text Comment)',1,BERNIE_BG],
+    ['conspiracy_custom','Conspiracy Meme (Top & Bottom Comments)',2,CONSPIRACY_BG],
+    ['gensler_custom','Gary Gensler (Bottom Comment)',1,GENSLER_BG],
+    ['buttons_custom','Two Buttons Meme (3 Comments: Left Button, Right Button, Sweating Guy)',3,BUTTONS_BG],
+    ['drake','drake',2,null], ['db','distracted boyfriend',3,null], ['gru','gru\'s plan',4,null],
+    ['fine','this is fine',2,null], ['stonks','stonks',2,null], ['pigeon','is this a pigeon?',3,null],
+    ['mordor','one does not simply',2,null], ['morpheus','morpheus',2,null], ['doge','doge',4,null],
+    ['spongebob','mocking spongebob',2,null], ['oprah','oprah',2,null], ['buzz','buzz lightyear',2,null],
+    ['rollsafe','roll safe',2,null], ['success','success kid',2,null], ['philosoraptor','philosoraptor',2,null],
+    ['cmm','change my mind',1,null], ['panik-kalm-panik','panik kalm panik',3,null],
+    ['woman-cat','woman yelling at cat',2,null], ['yodawg','yo dawg',2,null], ['wonka','condescending wonka',2,null],
+    ['harold','hide the pain harold',2,null], ['grumpycat','grumpy cat',2,null], ['joker','joker',2,null],
+    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null],
+    ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null]
   ];
 
   function enc(t){
@@ -308,8 +317,16 @@
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
   function memeUrl(tpl, lines, w, bg){
-    var targetTpl = tpl === 'aristocrat' ? 'custom' : tpl;
-    var targetBg = bg || (tpl === 'aristocrat' ? ARISTOCRAT_BG : null);
+    var targetTpl = tpl;
+    var targetBg = bg;
+
+    if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
+    else if (tpl === 'anakin_custom') { targetTpl = 'right'; }
+    else if (tpl === 'bernie_custom') { targetTpl = 'custom'; targetBg = BERNIE_BG; lines = ['_', lines[0]]; }
+    else if (tpl === 'conspiracy_custom') { targetTpl = 'custom'; targetBg = CONSPIRACY_BG; }
+    else if (tpl === 'gensler_custom') { targetTpl = 'custom'; targetBg = GENSLER_BG; lines = ['_', lines[0]]; }
+    else if (tpl === 'buttons_custom') { targetTpl = 'ds'; targetBg = null; }
+
     var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700);
     if (targetBg) u += '&background=' + encodeURIComponent(targetBg);
     return u;
@@ -411,16 +428,30 @@
     o.value = t[0]; o.textContent = t[1] + ' (' + t[2] + (t[2]===1?' line)':' lines)');
     tplSel.appendChild(o);
   });
+
+  var SLOT_LABELS = {
+    'aristocrat': ['Top Comment Section', 'Bottom Comment Section'],
+    'anakin_custom': ['Panel 1 Bottom Comment', 'Panel 2 Bottom Comment', 'Panel 3 Bottom Comment', 'Panel 4 Bottom Comment'],
+    'bernie_custom': ['Comment Under "I am once again asking"'],
+    'conspiracy_custom': ['Top Text Section (Optional)', 'Bottom Text Section (Optional)'],
+    'gensler_custom': ['Bottom Comment'],
+    'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment']
+  };
+
   function buildSlots(){
-    var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
+    var tval = tplSel.value;
+    var def = TPLS.filter(function(t){ return t[0] === tval; })[0];
     var n = def ? def[2] : 2;
     var host = document.getElementById('slotInputs');
     host.innerHTML = '';
+    
+    var customLabels = SLOT_LABELS[tval];
+
     for (var i = 0; i < n; i++){
       var lb = document.createElement('label');
-      lb.textContent = (tplSel.value === 'aristocrat' && i === 0) ? 'top text (optional, leave blank for bottom-only)' : ('line ' + (i+1));
+      lb.textContent = customLabels ? customLabels[i] : ('line ' + (i+1));
       var inp = document.createElement('input'); inp.type = 'text'; inp.maxLength = 100;
-      inp.placeholder = i === 0 ? (tplSel.value === 'aristocrat' ? 'leave blank for bottom-only text...' : 'top text...') : 'bottom text...';
+      inp.placeholder = customLabels ? customLabels[i] + '...' : (i === 0 ? 'top text...' : 'bottom text...');
       inp.dataset.slot = i;
       host.appendChild(lb); host.appendChild(inp);
     }
@@ -434,11 +465,16 @@
       document.querySelectorAll('#slotInputs input'),
       function(i){ return (i.value && i.value.trim()) ? i.value.trim() : '_'; }
     );
-    if (!lines.some(function(x){ return x && x.trim() && x !== '_'; })) { toast('type something first'); return; }
-    var def = TPLS.filter(function(t){ return t[0] === tplSel.value; })[0];
-    customUrl = memeUrl(tplSel.value, lines, 700);
+    
+    var tval = tplSel.value;
+    if (tval !== 'conspiracy_custom' && !lines.some(function(x){ return x && x.trim() && x !== '_'; })) { 
+      toast('type something first'); return; 
+    }
+
+    var def = TPLS.filter(function(t){ return t[0] === tval; })[0];
+    customUrl = memeUrl(tval, lines, 700);
     document.getElementById('cstage').classList.remove('hide');
-    document.getElementById('cfmtName').textContent = def ? def[1] : tplSel.value;
+    document.getElementById('cfmtName').textContent = def ? def[1] : tval;
     renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
   };
   document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
@@ -460,7 +496,6 @@
   // first paint: drop one immediately
   if (window.bankr && bankr.on) {
     bankr.on('ready', function(){ showMeme(pickMeme()); });
-    // in case ready already fired
     setTimeout(function(){ if (!current) showMeme(pickMeme()); }, 600);
   } else {
     showMeme(pickMeme());
