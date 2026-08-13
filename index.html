@@ -173,9 +173,9 @@
     {t:'custom', f:'aristocrats looking down', tags:['aristocrats','mid curve'], bg:ARISTOCRAT_BG, l:['BANKR AGENT EXECUTING LIMIT ORDERS','TIMELINE DEBATING RSI DIVERGENCE']},
 
     // --- Star Wars Anakin ---
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','self-grill','cope'], l:['I SET A STOP LOSS','SO MY CAPITAL IS SAFE RIGHT?','_','RIGHT?']},
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['I DEPLOYED A COIN WITH BANKR','IT HAS A 5 YEAR ROADMAP RIGHT?','_','RIGHT?']},
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','trench life'], l:['I BOUGHT THE DIP','THIS IS THE BOTTOM RIGHT?','_','RIGHT?']},
+    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','self-grill','cope'], l:['I SET A STOP LOSS','SO MY CAPITAL IS SAFE RIGHT?','RIGHT?']},
+    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['I DEPLOYED A COIN WITH BANKR','IT HAS A 5 YEAR ROADMAP RIGHT?','RIGHT?']},
+    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','trench life'], l:['I BOUGHT THE DIP','THIS IS THE BOTTOM RIGHT?','RIGHT?']},
 
     // --- Bernie Sanders Support ---
     {t:'custom', f:'bernie sanders support', tags:['bernie','cope','club'], bg:BERNIE_BG, l:['_','YOUR LIQUIDITY AT THE LOCAL BOTTOM']},
@@ -274,7 +274,6 @@
   function enc(t){
     if(!t || !t.trim() || t.trim() === '_') return '_';
     var text = t.trim();
-    // Uppercase text renders significantly larger & bolder in memegen font scaling
     text = text.toUpperCase();
     return text
       .replace(/_/g,'__').replace(/-/g,'--')
@@ -283,31 +282,69 @@
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
 
+  // HTML5 Canvas renderer for 4-panel Star Wars Anakin meme
+  function renderAnakinCanvas(lines, callback) {
+    var slot1 = (lines && lines[0]) ? lines[0] : '';
+    var slot2 = (lines && lines[1]) ? lines[1] : '';
+    var slot3 = (lines && lines[2]) ? lines[2] : '';
+
+    var img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      var w = img.naturalWidth || 1000;
+      var h = img.naturalHeight || 1000;
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+
+      function drawPanelText(text, cx, cy, maxW) {
+        if (!text || text === '_') return;
+        var txt = text.toUpperCase().trim();
+        var fontSize = Math.floor(w * 0.042);
+        ctx.font = '900 ' + fontSize + 'px Impact, "Arial Black", sans-serif';
+        while (ctx.measureText(txt).width > maxW && fontSize > 12) {
+          fontSize -= 2;
+          ctx.font = '900 ' + fontSize + 'px Impact, "Arial Black", sans-serif';
+        }
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = Math.max(3, Math.floor(fontSize / 6));
+        ctx.lineJoin = 'round';
+        ctx.strokeText(txt, cx, cy);
+        ctx.fillText(txt, cx, cy);
+      }
+
+      // Panel 1: Top Left (Anakin)
+      drawPanelText(slot1, w * 0.25, h * 0.46, w * 0.46);
+      // Panel 2: Top Right (Padme)
+      drawPanelText(slot2, w * 0.75, h * 0.46, w * 0.46);
+      // Panel 4: Bottom Right (Padme) - Panel 3 (Bottom Left Anakin) is left blank
+      drawPanelText(slot3, w * 0.75, h * 0.96, w * 0.46);
+
+      callback(canvas.toDataURL('image/png'));
+    };
+    img.onerror = function() {
+      callback(null);
+    };
+    img.src = ANAKIN_BG;
+  }
+
   function memeUrl(tpl, lines, w, bg){
     var targetTpl = tpl;
     var targetBg = bg;
     var targetWidth = w || 1200;
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
-    else if (tpl === 'anakin_custom') {
-      targetTpl = 'right';
-      targetBg = null;
-      // Memegen 'right' template has 4 panel slots (1: Top Left, 2: Top Right, 3: Bottom Left, 4: Bottom Right).
-      // Map 3 user input slots to slots 1, 2, 4 and leave slot 3 (Bottom Left) blank ('_').
-      lines = [
-        (lines && lines[0]) ? lines[0] : '_',
-        (lines && lines[1]) ? lines[1] : '_',
-        '_',
-        (lines && lines[2]) ? lines[2] : '_'
-      ];
-    }
     else if (tpl === 'bernie_custom') {
       targetTpl = 'custom';
       targetBg = BERNIE_BG;
       var captionText = (lines && lines[0]) ? lines[0].trim() : '';
       var clen = captionText.length;
       
-      // Calculate high-resolution width to force single-line rendering and scale font size down appropriately
       if (clen < 10) { targetWidth = 1800; }
       else if (clen < 20) { targetWidth = 2600; }
       else if (clen < 35) { targetWidth = 3400; }
@@ -376,14 +413,25 @@
   }
 
   function showMeme(m){
-    var tplCode = m.t;
-    if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
-    current = { meme: m, url: memeUrl(tplCode, m.l, 1200, m.bg) };
     document.getElementById('stage').classList.remove('hide');
     document.getElementById('fmtName').innerHTML = m.f + '<span>· ' + m.tags.join(', ') + '</span>';
     var textLines = m.l.filter(function(x){ return x && x !== '_'; }).map(function(x){ return x.toUpperCase(); });
     document.getElementById('capText').textContent = textLines.join('\n');
-    renderImg(document.getElementById('imgbox'), current.url, m.l);
+
+    if (m.t === 'anakin_custom') {
+      document.getElementById('imgbox').innerHTML = '<div class="loading">rendering...</div>';
+      renderAnakinCanvas(m.l, function(dataUrl){
+        var finalUrl = dataUrl || memeUrl('right', m.l, 1200);
+        current = { meme: m, url: finalUrl };
+        renderImg(document.getElementById('imgbox'), finalUrl, m.l);
+      });
+    } else {
+      var tplCode = m.t;
+      if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
+      var u = memeUrl(tplCode, m.l, 1200, m.bg);
+      current = { meme: m, url: u };
+      renderImg(document.getElementById('imgbox'), u, m.l);
+    }
   }
 
   function renderImg(box, url, lines){
@@ -411,7 +459,7 @@
     copyText(current.meme.f + '\n' + textLines.join('\n'));
   };
   document.getElementById('copyUrl').onclick = function(){ if (current) copyText(current.url); };
-  document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t === 'custom' && current.meme.bg === BERNIE_BG ? 'bernie_custom' : current.meme.t, current.meme.l, 1400, current.meme.bg)); };
+  document.getElementById('openFull').onclick = function(){ if (current) openUrl(current.url); };
   document.getElementById('remix').onclick = function(){
     var topic = activeTag === 'all' ? '' : ' about ' + activeTag;
     if (window.bankr && bankr.prefillChat) bankr.prefillChat('make me a BANKR meme' + topic);
@@ -469,10 +517,19 @@
     }
 
     var def = TPLS.filter(function(t){ return t[0] === tval; })[0];
-    customUrl = memeUrl(tval, lines, 1200);
     document.getElementById('cstage').classList.remove('hide');
     document.getElementById('cfmtName').textContent = def ? def[1] : tval;
-    renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
+
+    if (tval === 'anakin_custom') {
+      document.getElementById('cimgbox').innerHTML = '<div class="loading">rendering...</div>';
+      renderAnakinCanvas(lines, function(dataUrl){
+        customUrl = dataUrl;
+        renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
+      });
+    } else {
+      customUrl = memeUrl(tval, lines, 1200);
+      renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
+    }
   };
   document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
   document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl); };
