@@ -287,11 +287,11 @@
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
     else if (tpl === 'anakin_custom') {
-      // Memegen 'right' template (Anakin & Padme 4-panel) natively positions text:
-      // Line 1 -> Panel 1 (Top Left Anakin)
-      // Line 2 -> Panel 2 (Top Right Padme)
-      // Line 3 -> Panel 4 (Bottom Right Padme)
-      // Panel 3 (Bottom Left Anakin) has no text parameter in 'right'.
+      // Memegen 'right' template (Anakin & Padme 4-panel) natively positions 3 text slots:
+      // Param 1: Top Left Panel (Anakin)
+      // Param 2: Top Right Panel (Padme)
+      // Param 3: Bottom Right Panel (Padme)
+      // Panel 3 (Bottom Left Anakin) is left blank by the template.
       targetTpl = 'right';
       targetBg = null;
       lines = [
