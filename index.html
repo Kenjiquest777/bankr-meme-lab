@@ -292,7 +292,7 @@
   var TPLS = [
     ['aristocrat','Aristocrat (Top & Bottom Comments)',2,ARISTOCRAT_BG],
     ['anakin_custom','Star Wars Anakin (4 Panel Bottom Comments)',4,null],
-    ['bernie_custom','Bernie Sanders Support (Auto-scaling Comment)',1,BERNIE_BG],
+    ['bernie_custom','Bernie Sanders Support (Single Line Auto-scaled)',1,BERNIE_BG],
     ['conspiracy_custom','Conspiracy Meme (Top & Bottom Comments)',2,CONSPIRACY_BG],
     ['gensler_custom','Gary Gensler (Bottom Comment)',1,GENSLER_BG],
     ['buttons_custom','Two Buttons Meme (3 Comments: Left Button, Right Button, Sweating Guy)',3,BUTTONS_BG],
@@ -333,11 +333,12 @@
       var captionText = (lines && lines[0]) ? lines[0].trim() : '';
       var clen = captionText.length;
       
-      // Auto-scale canvas width based on caption length to scale font and prevent overlap with baked text
-      if (clen < 15) { targetWidth = 2200; }
-      else if (clen < 30) { targetWidth = 1700; }
-      else if (clen < 50) { targetWidth = 1400; }
-      else { targetWidth = 1200; }
+      // Calculate high-resolution width to force single-line rendering and scale font size down appropriately
+      if (clen < 10) { targetWidth = 1800; }
+      else if (clen < 20) { targetWidth = 2600; }
+      else if (clen < 35) { targetWidth = 3400; }
+      else if (clen < 50) { targetWidth = 4200; }
+      else { targetWidth = 5000; }
 
       lines = ['_', captionText || 'YOUR FINANCIAL SUPPORT'];
     }
@@ -453,7 +454,7 @@
   var SLOT_LABELS = {
     'aristocrat': ['Top Comment Section', 'Bottom Comment Section'],
     'anakin_custom': ['Panel 1 Bottom Comment', 'Panel 2 Bottom Comment', 'Panel 3 Bottom Comment', 'Panel 4 Bottom Comment'],
-    'bernie_custom': ['Comment Under "I am once again asking" (Auto-scales to fit)'],
+    'bernie_custom': ['Single-Line Comment Under "I am once again asking" (Auto-scales font)'],
     'conspiracy_custom': ['Top Text Section (Optional)', 'Bottom Text Section (Optional)'],
     'gensler_custom': ['Bottom Comment'],
     'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment'],
