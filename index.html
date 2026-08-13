@@ -287,11 +287,11 @@
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
     else if (tpl === 'anakin_custom') {
-      // Memegen 'right' template (Anakin & Padme 4-panel) takes 4 path parameters:
-      // Parameter 1: Top Left Panel (Anakin)
-      // Parameter 2: Top Right Panel (Padme)
-      // Parameter 3: Bottom Left Panel (Anakin) -> set to '_' (blank)
-      // Parameter 4: Bottom Right Panel (Padme)
+      // Memegen 'right' template (Anakin & Padme 4-panel) natively takes 4 parameters:
+      // Param 1 -> Top Left Panel (Anakin)
+      // Param 2 -> Top Right Panel (Padme)
+      // Param 3 -> Bottom Left Panel (Anakin) - explicitly set to '_' so it stays blank
+      // Param 4 -> Bottom Right Panel (Padme)
       targetTpl = 'right';
       targetBg = null;
       var s1 = (lines && lines[0]) ? lines[0] : '_';
