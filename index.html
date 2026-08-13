@@ -282,7 +282,7 @@
     {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['panel 1 bottom','panel 2 bottom','panel 3 bottom','panel 4 bottom']},
     {t:'custom', f:'bernie sanders support', tags:['bernie','club'], bg:BERNIE_BG, l:['_','i am once again asking for your support']},
     {t:'custom', f:'conspiracy meme', tags:['conspiracy','beef & fud'], bg:CONSPIRACY_BG, l:['top conspiracy text','bottom conspiracy text']},
-    {t:'custom', f:'gary gensler', tags:['gensler','normies'], bg:GENSLER_BG, l:['_','gary gensler bottom comment']},
+    {t:'custom', f:'gensler', tags:['gensler','normies'], bg:GENSLER_BG, l:['_','gary gensler bottom comment']},
     {t:'custom', f:'two buttons meme', tags:['two buttons','agent life'], bg:BUTTONS_BG, l:['button 1 text','button 2 text','sweating guy text']}
   ];
 
@@ -327,7 +327,7 @@
     else if (tpl === 'gensler_custom') { targetTpl = 'custom'; targetBg = GENSLER_BG; lines = ['_', lines[0]]; }
     else if (tpl === 'buttons_custom') { targetTpl = 'ds'; targetBg = null; }
 
-    var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700);
+    var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + (w||700) + '&font=impact';
     if (targetBg) u += '&background=' + encodeURIComponent(targetBg);
     return u;
   }
@@ -435,7 +435,8 @@
     'bernie_custom': ['Comment Under "I am once again asking"'],
     'conspiracy_custom': ['Top Text Section (Optional)', 'Bottom Text Section (Optional)'],
     'gensler_custom': ['Bottom Comment'],
-    'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment']
+    'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment'],
+    'pigeon': ['Guy / Person Label', 'Butterfly / Object Label (Auto-Scales with length)', 'Bottom Question Text']
   };
 
   function buildSlots(){
