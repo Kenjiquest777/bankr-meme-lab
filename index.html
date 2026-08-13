@@ -64,6 +64,58 @@
   .fallback{padding:26px 20px; text-align:center;}
   .fallback .fb-line{font-size:15px; font-weight:700; color:var(--txt); margin:5px 0; text-transform:uppercase;}
   .fallback .fb-note{color:var(--mut); font-size:11px; margin-top:14px;}
+  
+  /* Precision Overlay for 4-Panel Star Wars Anakin Meme */
+  .anakin-wrap {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  .anakin-wrap img {
+    max-width: 100%;
+    max-height: 440px;
+    display: block;
+  }
+  .anakin-slot {
+    position: absolute;
+    font-family: Impact, 'Arial Black', sans-serif;
+    font-weight: 900;
+    color: #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.15;
+    text-shadow:
+      -2px -2px 0 #000,  
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+      -3px  0px 0 #000,
+       3px  0px 0 #000,
+       0px -3px 0 #000,
+       0px  3px 0 #000;
+    pointer-events: none;
+    word-break: break-word;
+  }
+  .anakin-s1 {
+    top: 36%;
+    left: 2%;
+    width: 46%;
+    font-size: clamp(12px, 3.2vw, 22px);
+  }
+  .anakin-s2 {
+    top: 36%;
+    left: 52%;
+    width: 46%;
+    font-size: clamp(12px, 3.2vw, 22px);
+  }
+  .anakin-s3 {
+    top: 86%;
+    left: 52%;
+    width: 46%;
+    font-size: clamp(12px, 3.2vw, 22px);
+  }
+
   .cap{
     background:var(--panel2); border:1px solid var(--line); border-radius:4px;
     padding:10px 12px; margin-bottom:10px; white-space:pre-wrap; font-size:12.5px;
@@ -266,8 +318,7 @@
     ['rollsafe','roll safe',2,null], ['success','success kid',2,null], ['philosoraptor','philosoraptor',2,null],
     ['cmm','change my mind',1,null], ['panik-kalm-panik','panik kalm panik',3,null],
     ['woman-cat','woman yelling at cat',2,null], ['yodawg','yo dawg',2,null], ['wonka','condescending wonka',2,null], ['harold','hide the pain harold',2,null], ['grumpycat','grumpy cat',2,null], ['joker','joker',2,null],
-    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null],
-    ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null]
+    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null], ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null]
   ];
 
   function enc(t){
@@ -281,59 +332,39 @@
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
 
-  // HTML5 Canvas renderer for 4-panel Star Wars Anakin custom image from GitHub
-  function renderAnakinCanvas(lines, callback) {
-    var slot1 = (lines && lines[0] && lines[0] !== '_') ? lines[0].trim() : '';
-    var slot2 = (lines && lines[1] && lines[1] !== '_') ? lines[1].trim() : '';
-    var slot3 = (lines && lines[2] && lines[2] !== '_') ? lines[2].trim() : '';
+  function renderAnakinDOM(box, lines) {
+    var s1 = (lines && lines[0] && lines[0] !== '_') ? lines[0].trim() : '';
+    var s2 = (lines && lines[1] && lines[1] !== '_') ? lines[1].trim() : '';
+    var s3 = (lines && lines[2] && lines[2] !== '_') ? lines[2].trim() : '';
 
-    var img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = function() {
-      var canvas = document.createElement('canvas');
-      var w = img.naturalWidth || 800;
-      var h = img.naturalHeight || 800;
-      canvas.width = w;
-      canvas.height = h;
-      var ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
+    box.innerHTML = '';
+    var wrap = document.createElement('div');
+    wrap.className = 'anakin-wrap';
 
-      function drawPanelText(text, cx, cy, maxW) {
-        if (!text) return;
-        var txt = text.toUpperCase();
-        var fontSize = Math.floor(w * 0.045);
-        ctx.font = '900 ' + fontSize + 'px Impact, "Arial Black", sans-serif';
-        while (ctx.measureText(txt).width > maxW && fontSize > 12) {
-          fontSize -= 2;
-          ctx.font = '900 ' + fontSize + 'px Impact, "Arial Black", sans-serif';
-        }
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'bottom';
-        ctx.fillStyle = '#FFFFFF';
-        ctx.strokeStyle = '#000000';
-        ctx.lineWidth = Math.max(3, Math.floor(fontSize / 5));
-        ctx.lineJoin = 'round';
-        ctx.strokeText(txt, cx, cy);
-        ctx.fillText(txt, cx, cy);
-      }
-
-      // Panel 1: Top Left (Anakin)
-      drawPanelText(slot1, w * 0.25, h * 0.47, w * 0.46);
-      // Panel 2: Top Right (Padme)
-      drawPanelText(slot2, w * 0.75, h * 0.47, w * 0.46);
-      // Panel 4: Bottom Right (Padme) - Panel 3 (Bottom Left Anakin) is left blank
-      drawPanelText(slot3, w * 0.75, h * 0.97, w * 0.46);
-
-      try {
-        callback(canvas.toDataURL('image/png'));
-      } catch(e) {
-        callback(null);
-      }
-    };
-    img.onerror = function() {
-      callback(null);
-    };
+    var img = document.createElement('img');
     img.src = ANAKIN_BG;
+    wrap.appendChild(img);
+
+    if (s1) {
+      var d1 = document.createElement('div');
+      d1.className = 'anakin-slot anakin-s1';
+      d1.textContent = s1.toUpperCase();
+      wrap.appendChild(d1);
+    }
+    if (s2) {
+      var d2 = document.createElement('div');
+      d2.className = 'anakin-slot anakin-s2';
+      d2.textContent = s2.toUpperCase();
+      wrap.appendChild(d2);
+    }
+    if (s3) {
+      var d3 = document.createElement('div');
+      d3.className = 'anakin-slot anakin-s3';
+      d3.textContent = s3.toUpperCase();
+      wrap.appendChild(d3);
+    }
+
+    box.appendChild(wrap);
   }
 
   function memeUrl(tpl, lines, w, bg){
@@ -422,13 +453,8 @@
     document.getElementById('capText').textContent = textLines.join('\n');
 
     if (m.t === 'anakin_custom') {
-      var imgbox = document.getElementById('imgbox');
-      imgbox.innerHTML = '<div class="loading">rendering...</div>';
-      renderAnakinCanvas(m.l, function(dataUrl){
-        var finalUrl = dataUrl || memeUrl('right', m.l, 1200);
-        current = { meme: m, url: finalUrl };
-        renderImg(imgbox, finalUrl, m.l);
-      });
+      current = { meme: m, url: ANAKIN_BG };
+      renderAnakinDOM(document.getElementById('imgbox'), m.l);
     } else {
       var tplCode = m.t;
       if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
@@ -525,12 +551,8 @@
     document.getElementById('cfmtName').textContent = def ? def[1] : tval;
 
     if (tval === 'anakin_custom') {
-      var cimgbox = document.getElementById('cimgbox');
-      cimgbox.innerHTML = '<div class="loading">rendering...</div>';
-      renderAnakinCanvas(lines, function(dataUrl){
-        customUrl = dataUrl || memeUrl('right', lines, 1200);
-        renderImg(cimgbox, customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
-      });
+      customUrl = ANAKIN_BG;
+      renderAnakinDOM(document.getElementById('cimgbox'), lines);
     } else {
       customUrl = memeUrl(tval, lines, 1200);
       renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
