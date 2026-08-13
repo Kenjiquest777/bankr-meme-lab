@@ -287,18 +287,18 @@
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
     else if (tpl === 'anakin_custom') {
-      // Memegen 'right' template is 4-panel Anakin & Padme.
-      // Explicitly map 3 user inputs to 4 path parameters:
-      // Parameter 1: Top Left Panel (Anakin) -> lines[0]
-      // Parameter 2: Top Right Panel (Padme) -> lines[1]
-      // Parameter 3: Bottom Left Panel (Anakin) -> '_' (blank)
-      // Parameter 4: Bottom Right Panel (Padme) -> lines[2]
+      // Memegen 'right' template (Anakin & Padme) natively takes 3 text parameters:
+      // Line 1: Top Left Panel (Anakin)
+      // Line 2: Top Right Panel (Padme)
+      // Line 3: Bottom Right Panel (Padme)
+      // Panel 3 (Bottom Left Anakin) is left blank in the template by default.
       targetTpl = 'right';
       targetBg = null;
-      var s1 = (lines && lines[0]) ? lines[0] : '_';
-      var s2 = (lines && lines[1]) ? lines[1] : '_';
-      var s3 = (lines && lines[2]) ? lines[2] : '_';
-      lines = [s1, s2, '_', s3];
+      lines = [
+        (lines && lines[0]) ? lines[0] : '_',
+        (lines && lines[1]) ? lines[1] : '_',
+        (lines && lines[2]) ? lines[2] : '_'
+      ];
     }
     else if (tpl === 'bernie_custom') {
       targetTpl = 'custom';
