@@ -173,9 +173,9 @@
     {t:'custom', f:'aristocrats looking down', tags:['aristocrats','mid curve'], bg:ARISTOCRAT_BG, l:['BANKR AGENT EXECUTING LIMIT ORDERS','TIMELINE DEBATING RSI DIVERGENCE']},
 
     // --- Star Wars Anakin ---
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','self-grill','cope'], l:['I SET A STOP LOSS','SO MY CAPITAL IS SAFE RIGHT?','RIGHT?']},
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['I DEPLOYED A COIN WITH BANKR','IT HAS A 5 YEAR ROADMAP RIGHT?','RIGHT?']},
-    {t:'right', f:'star wars anakin & padme', tags:['star wars','trench life'], l:['I BOUGHT THE DIP','THIS IS THE BOTTOM RIGHT?','RIGHT?']},
+    {t:'right', f:'star wars anakin & padme', tags:['star wars','self-grill','cope'], l:['I SET A STOP LOSS','SO MY CAPITAL IS SAFE RIGHT?','_','RIGHT?']},
+    {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['I DEPLOYED A COIN WITH BANKR','IT HAS A 5 YEAR ROADMAP RIGHT?','_','RIGHT?']},
+    {t:'right', f:'star wars anakin & padme', tags:['star wars','trench life'], l:['I BOUGHT THE DIP','THIS IS THE BOTTOM RIGHT?','_','RIGHT?']},
 
     // --- Bernie Sanders Support ---
     {t:'custom', f:'bernie sanders support', tags:['bernie','cope','club'], bg:BERNIE_BG, l:['_','YOUR LIQUIDITY AT THE LOCAL BOTTOM']},
@@ -289,7 +289,18 @@
     var targetWidth = w || 1200;
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
-    else if (tpl === 'anakin_custom') { targetTpl = 'right'; }
+    else if (tpl === 'anakin_custom') {
+      targetTpl = 'right';
+      targetBg = null;
+      // Memegen 'right' template has 4 panel slots (1: Top Left, 2: Top Right, 3: Bottom Left, 4: Bottom Right).
+      // Map 3 user input slots to slots 1, 2, 4 and leave slot 3 (Bottom Left) blank ('_').
+      lines = [
+        (lines && lines[0]) ? lines[0] : '_',
+        (lines && lines[1]) ? lines[1] : '_',
+        '_',
+        (lines && lines[2]) ? lines[2] : '_'
+      ];
+    }
     else if (tpl === 'bernie_custom') {
       targetTpl = 'custom';
       targetBg = BERNIE_BG;
