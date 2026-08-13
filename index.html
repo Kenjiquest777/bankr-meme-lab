@@ -280,7 +280,7 @@
     // --- Custom Image Memes from Git ---
     {t:'custom', f:'aristocrats looking down', tags:['aristocrats','club','mid curve'], bg:ARISTOCRAT_BG, l:['top comment','bottom comment']},
     {t:'right', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['panel 1 bottom','panel 2 bottom','panel 3 bottom','panel 4 bottom']},
-    {t:'custom', f:'bernie sanders support', tags:['bernie','club'], bg:BERNIE_BG, l:['_','i am once again asking for your support']},
+    {t:'custom', f:'bernie sanders support', tags:['bernie','club'], bg:BERNIE_BG, l:['_','your financial support']},
     {t:'custom', f:'conspiracy meme', tags:['conspiracy','beef & fud'], bg:CONSPIRACY_BG, l:['top conspiracy text','bottom conspiracy text']},
     {t:'custom', f:'gensler', tags:['gensler','normies'], bg:GENSLER_BG, l:['_','gary gensler bottom comment']},
     {t:'custom', f:'two buttons meme', tags:['two buttons','agent life'], bg:BUTTONS_BG, l:['button 1 text','button 2 text','sweating guy text']}
@@ -292,7 +292,7 @@
   var TPLS = [
     ['aristocrat','Aristocrat (Top & Bottom Comments)',2,ARISTOCRAT_BG],
     ['anakin_custom','Star Wars Anakin (4 Panel Bottom Comments)',4,null],
-    ['bernie_custom','Bernie Sanders Support (Under Text Comment)',1,BERNIE_BG],
+    ['bernie_custom','Bernie Sanders Support (Auto-scaling Comment)',1,BERNIE_BG],
     ['conspiracy_custom','Conspiracy Meme (Top & Bottom Comments)',2,CONSPIRACY_BG],
     ['gensler_custom','Gary Gensler (Bottom Comment)',1,GENSLER_BG],
     ['buttons_custom','Two Buttons Meme (3 Comments: Left Button, Right Button, Sweating Guy)',3,BUTTONS_BG],
@@ -319,23 +319,37 @@
       .replace(/#/g,'~h').replace(/\//g,'~s').replace(/\\/g,'~b')
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
+
   function memeUrl(tpl, lines, w, bg){
     var targetTpl = tpl;
     var targetBg = bg;
+    var targetWidth = w || 1200;
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
     else if (tpl === 'anakin_custom') { targetTpl = 'right'; }
-    else if (tpl === 'bernie_custom') { targetTpl = 'custom'; targetBg = BERNIE_BG; lines = ['_', lines[0]]; }
+    else if (tpl === 'bernie_custom') {
+      targetTpl = 'custom';
+      targetBg = BERNIE_BG;
+      var captionText = (lines && lines[0]) ? lines[0].trim() : '';
+      var clen = captionText.length;
+      
+      // Auto-scale canvas width based on caption length to scale font and prevent overlap with baked text
+      if (clen < 15) { targetWidth = 2200; }
+      else if (clen < 30) { targetWidth = 1700; }
+      else if (clen < 50) { targetWidth = 1400; }
+      else { targetWidth = 1200; }
+
+      lines = ['_', captionText || 'YOUR FINANCIAL SUPPORT'];
+    }
     else if (tpl === 'conspiracy_custom') { targetTpl = 'custom'; targetBg = CONSPIRACY_BG; }
     else if (tpl === 'gensler_custom') { targetTpl = 'custom'; targetBg = GENSLER_BG; lines = ['_', lines[0]]; }
     else if (tpl === 'buttons_custom') { targetTpl = 'ds'; targetBg = null; }
 
-    // Increased default canvas width to 1200px so memegen renders noticeably larger, higher-resolution fonts
-    var targetWidth = w || 1200;
     var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + targetWidth + '&font=impact';
     if (targetBg) u += '&background=' + encodeURIComponent(targetBg);
     return u;
   }
+
   function toast(msg){
     var el = document.getElementById('toast');
     el.textContent = msg; el.classList.add('show');
@@ -387,7 +401,9 @@
   }
 
   function showMeme(m){
-    current = { meme: m, url: memeUrl(m.t, m.l, 1200, m.bg) };
+    var tplCode = m.t;
+    if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
+    current = { meme: m, url: memeUrl(tplCode, m.l, 1200, m.bg) };
     document.getElementById('stage').classList.remove('hide');
     document.getElementById('fmtName').innerHTML = m.f + '<span>· ' + m.tags.join(', ') + '</span>';
     var textLines = m.l.filter(function(x){ return x && x !== '_'; }).map(function(x){ return x.toUpperCase(); });
@@ -420,7 +436,7 @@
     copyText(current.meme.f + '\n' + textLines.join('\n'));
   };
   document.getElementById('copyUrl').onclick = function(){ if (current) copyText(current.url); };
-  document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t, current.meme.l, 1400, current.meme.bg)); };
+  document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t === 'custom' && current.meme.bg === BERNIE_BG ? 'bernie_custom' : current.meme.t, current.meme.l, 1400, current.meme.bg)); };
   document.getElementById('remix').onclick = function(){
     var topic = activeTag === 'all' ? '' : ' about ' + activeTag;
     if (window.bankr && bankr.prefillChat) bankr.prefillChat('make me a BANKR meme' + topic);
@@ -437,7 +453,7 @@
   var SLOT_LABELS = {
     'aristocrat': ['Top Comment Section', 'Bottom Comment Section'],
     'anakin_custom': ['Panel 1 Bottom Comment', 'Panel 2 Bottom Comment', 'Panel 3 Bottom Comment', 'Panel 4 Bottom Comment'],
-    'bernie_custom': ['Comment Under "I am once again asking"'],
+    'bernie_custom': ['Comment Under "I am once again asking" (Auto-scales to fit)'],
     'conspiracy_custom': ['Top Text Section (Optional)', 'Bottom Text Section (Optional)'],
     'gensler_custom': ['Bottom Comment'],
     'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment'],
@@ -484,7 +500,7 @@
     renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
   };
   document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
-  document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl.replace('width=1200','width=1600')); };
+  document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl); };
 
   // ---- tabs ----
   var tabR = document.getElementById('tabRandom'), tabC = document.getElementById('tabCustom');
