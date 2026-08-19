@@ -64,58 +64,6 @@
   .fallback{padding:26px 20px; text-align:center;}
   .fallback .fb-line{font-size:15px; font-weight:700; color:var(--txt); margin:5px 0; text-transform:uppercase;}
   .fallback .fb-note{color:var(--mut); font-size:11px; margin-top:14px;}
-  
-  /* Precision Overlay for 4-Panel Star Wars Anakin Meme */
-  .anakin-wrap {
-    position: relative;
-    display: inline-block;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  .anakin-wrap img {
-    max-width: 100%;
-    max-height: 440px;
-    display: block;
-  }
-  .anakin-slot {
-    position: absolute;
-    font-family: Impact, 'Arial Black', sans-serif;
-    font-weight: 900;
-    color: #ffffff;
-    text-align: center;
-    text-transform: uppercase;
-    line-height: 1.15;
-    text-shadow:
-      -2px -2px 0 #000,  
-       2px -2px 0 #000,
-      -2px  2px 0 #000,
-       2px  2px 0 #000,
-      -3px  0px 0 #000,
-       3px  0px 0 #000,
-       0px -3px 0 #000,
-       0px  3px 0 #000;
-    pointer-events: none;
-    word-break: break-word;
-  }
-  .anakin-s1 {
-    top: 36%;
-    left: 2%;
-    width: 46%;
-    font-size: clamp(12px, 3.2vw, 22px);
-  }
-  .anakin-s2 {
-    top: 36%;
-    left: 52%;
-    width: 46%;
-    font-size: clamp(12px, 3.2vw, 22px);
-  }
-  .anakin-s3 {
-    top: 86%;
-    left: 52%;
-    width: 46%;
-    font-size: clamp(12px, 3.2vw, 22px);
-  }
-
   .cap{
     background:var(--panel2); border:1px solid var(--line); border-radius:4px;
     padding:10px 12px; margin-bottom:10px; white-space:pre-wrap; font-size:12.5px;
@@ -211,14 +159,29 @@
   var GH_BASE = 'https://raw.githubusercontent.com/Kenjiquest777/bankr-meme-lab/main/Images/';
 
   var ARISTOCRAT_BG = GH_BASE + 'Aristocrat.jpg';
-  var ANAKIN_BG = GH_BASE + 'Anakin%20Princess.png';
   var BERNIE_BG = GH_BASE + 'Bernie-I-Am-Once-Again-Asking-For-Your-Support.jpg';
-  var CONSPIRACY_BG = GH_BASE + 'Conspiracy%20Meme.jpg';
   var GENSLER_BG = GH_BASE + 'Gensler.jpg';
+  var CONSPIRACY_BG = GH_BASE + 'conspiracy.jpg';
   var BUTTONS_BG = GH_BASE + 'Two-Buttons.jpg';
 
   // ---- curated BANKR meme pool ----
   var POOL = [
+    // --- Beef & FUD (Restored & Expanded) ---
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','normies','mid curve'], l:['FALSE','THAT IS LIQUIDITY EXITING YOUR BAGS']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','trench life'], l:['FALSE','THE PROTOCOL ISNT DOWN IT IS AN UNPLANNED STRESS TEST']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','0xDeployer'], l:['FALSE','YOU CAN JUST MAKE THINGS']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','volatility'], l:['BNKR IS GOING TO ZERO?','FALSE. IT IS AN EXTENDED DISCOUNT FOR AGENTIC ACCUMULATION']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','cope'], l:['PRICE DROPPED 20 PERCENT?','FALSE. IT IS REPOSITIONING FOR THE NEXT AGENT EXPANSION']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','trench life'], l:['FALSE','RED CANDLES ARE NOT FUD. THEY ARE LIQUIDITY TESTS FOR TRUE HOLDERS']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','agent life'], l:['BANKR DIES ON DIPS?','FALSE. AGENTS DONT SLEEP AND DONT PANIC SELL']},
+    {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','mid curve'], l:['LOWER PRICE MEANS FAILED AGENT?','FALSE. AGENTS EXECUTE REGARDLESS OF YOUR EMOTIONS']},
+    {t:'disastergirl', f:'disaster girl', tags:['beef & fud','trench life'], l:['WATCHING CT PROTOCOL BEEF','WHILE MY AGENT AUTO-CLAIMS BNKR']},
+    {t:'kermit', f:'but that\'s none of my business', tags:['beef & fud','mid curve'], l:['TIMELINE BICKERING OVER 50 PAGE WHITEPAPERS','BUT THATS NONE OF MY BUSINESS']},
+    {t:'spongebob', f:'mocking spongebob', tags:['beef & fud','base'], l:['bAnKr dOesNt rUn bAsE','bAnKr dOesNt rUn bAsE']},
+    {t:'woman-cat', f:'woman yelling at cat', tags:['beef & fud','trench life'], l:['YOU APED BASED ON A TWEET','IT WAS A CLEARLY LABELED NARRATIVE SHIFT']},
+    {t:'cmm', f:'change my mind', tags:['beef & fud','base'], l:['CT DRAMA IS JUST UNPAID MARKETING. CHANGE MY MIND']},
+    {t:'custom', f:'conspiracy meme', tags:['conspiracy','self-grill','beef & fud'], bg:CONSPIRACY_BG, l:['THE CHART ISNT CRASHING','IT IS DIVERTING LIQUIDITY TO THE NEXT LEG UP']},
+
     // --- Aristocrats ---
     {t:'custom', f:'aristocrats looking down', tags:['aristocrats','self-grill','club'], bg:ARISTOCRAT_BG, l:['US EXECUTING TRADES FROM BED','PEOPLE WRITING 50 PAGE WHITE PAPERS']},
     {t:'custom', f:'aristocrats looking down', tags:['aristocrats','trench life'], bg:ARISTOCRAT_BG, l:['PRE-SEED INVESTORS WATCHING US','NUKING OUR BAGS ON A 3AM DIP']},
@@ -235,7 +198,6 @@
     {t:'custom', f:'bernie sanders support', tags:['bernie','self-grill'], bg:BERNIE_BG, l:['_','ONE MORE CHANCE NOT TO APE THE HIGHS']},
 
     // --- Conspiracy Meme ---
-    {t:'custom', f:'conspiracy meme', tags:['conspiracy','self-grill','beef & fud'], bg:CONSPIRACY_BG, l:['THE CHART ISNT CRASHING','IT IS DIVERTING LIQUIDITY TO THE NEXT LEG UP']},
     {t:'custom', f:'conspiracy meme', tags:['conspiracy','trench life'], bg:CONSPIRACY_BG, l:['EVERY RED CANDLE','IS A TEST BY DEPLOYER TO SEEK TRUE HOLDERS']},
     {t:'custom', f:'conspiracy meme', tags:['conspiracy','cope'], bg:CONSPIRACY_BG, l:['MY BAG ISNT DOWN 80 PERCENT','IT IS HEALTHY RETESTING OF THE ATOMIC ATTO-CAP']},
 
@@ -257,7 +219,6 @@
 
     // --- Trench Life & Dev Pain ---
     {t:'drake', f:'drake', tags:['dev pain','just make things'], l:['WRITING 100 PAGES OF DOCUMENTATION','TYPING A PROMPT AND BUILDING IT IN 30 SECONDS']},
-    {t:'woman-cat', f:'woman yelling at cat', tags:['trench life','self-grill'], l:['YOU APED INTO A TOKEN WITH NO WEBSITE','THE AGENT SAID IT HAD GOOD MOMENTUM']},
     {t:'gru', f:'gru\'s plan', tags:['dev pain','self-grill'], l:['PROMISE A SMOOTH LAUNCH','DEPLOY CONTRACT ON MAINNET','FAT FINGER THE INITIAL LP LIQUIDITY','FAT FINGER THE INITIAL LP LIQUIDITY']},
     {t:'stonks', f:'stonks', tags:['trench life','cope'], l:['GAS SPENT WAS HIGHER THAN PROFIT','STONKS']},
 
@@ -278,7 +239,6 @@
     {t:'cmm', f:'change my mind', tags:['base','bankr bish'], l:['BANKR RUNS BASE. CHANGE MY MIND']},
     {t:'astronaut', f:'always has been', tags:['base','one-liner'], l:['WAIT BANKR RUNS THE BASE AGENT ECONOMY','ALWAYS HAS BEEN']},
     {t:'oprah', f:'oprah', tags:['base','agent life'], l:['BANKR RUNS BASE','AND EVERYBODY GETS AN AGENT']},
-    {t:'spongebob', f:'mocking spongebob', tags:['base','beef & fud'], l:['BANKR DOESNT RUN BASE','BANKR DOESNT RUN BASE']},
     {t:'success', f:'success kid', tags:['base','club'], l:['BANKR RUNS BASE','MY AGENT PRINTS BNKR DAILY']},
     {t:'morpheus', f:'morpheus', tags:['base','bankr bish'], l:['WHAT IF I TOLD YOU','BANKR RUNS BASE BISH']},
     {t:'joker', f:'joker', tags:['base'], l:['OTHER PROJECTS TALK ABOUT AGENTS','BANKR ACTUALLY RUNS BASE']},
@@ -301,10 +261,11 @@
     {t:'cmm', f:'change my mind', tags:['ham & mfers'], l:['WE ARE ALL MFERS EVEN THE AGENTS. CHANGE MY MIND']}
   ];
 
-  var TAGS = ['all','self-grill','cope','aristocrats','star wars','bernie','conspiracy','gensler','two buttons','trench life','dev pain','just make things','0xDeployer','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','beef & fud'];
+  var TAGS = ['all','beef & fud','dwight','self-grill','cope','aristocrats','star wars','bernie','conspiracy','gensler','two buttons','trench life','dev pain','just make things','0xDeployer','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers'];
 
   // custom builder templates: id -> [label, slotCount, optionalBg]
   var TPLS = [
+    ['dwight','dwight schrute (false...)',2,null],
     ['aristocrat','Aristocrat (Top & Bottom Comments)',2,ARISTOCRAT_BG],
     ['anakin_custom','Star Wars Anakin (3 Panel Comments: Top Left, Top Right, Bottom Right)',3,null],
     ['bernie_custom','Bernie Sanders Support (Single Line Auto-scaled)',1,BERNIE_BG],
@@ -318,7 +279,8 @@
     ['rollsafe','roll safe',2,null], ['success','success kid',2,null], ['philosoraptor','philosoraptor',2,null],
     ['cmm','change my mind',1,null], ['panik-kalm-panik','panik kalm panik',3,null],
     ['woman-cat','woman yelling at cat',2,null], ['yodawg','yo dawg',2,null], ['wonka','condescending wonka',2,null], ['harold','hide the pain harold',2,null], ['grumpycat','grumpy cat',2,null], ['joker','joker',2,null],
-    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null], ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null]
+    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null],
+    ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null], ['kermit','kermit / none of my business',2,null]
   ];
 
   function enc(t){
@@ -332,47 +294,20 @@
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
 
-  function renderAnakinDOM(box, lines) {
-    var s1 = (lines && lines[0] && lines[0] !== '_') ? lines[0].trim() : '';
-    var s2 = (lines && lines[1] && lines[1] !== '_') ? lines[1].trim() : '';
-    var s3 = (lines && lines[2] && lines[2] !== '_') ? lines[2].trim() : '';
-
-    box.innerHTML = '';
-    var wrap = document.createElement('div');
-    wrap.className = 'anakin-wrap';
-
-    var img = document.createElement('img');
-    img.src = ANAKIN_BG;
-    wrap.appendChild(img);
-
-    if (s1) {
-      var d1 = document.createElement('div');
-      d1.className = 'anakin-slot anakin-s1';
-      d1.textContent = s1.toUpperCase();
-      wrap.appendChild(d1);
-    }
-    if (s2) {
-      var d2 = document.createElement('div');
-      d2.className = 'anakin-slot anakin-s2';
-      d2.textContent = s2.toUpperCase();
-      wrap.appendChild(d2);
-    }
-    if (s3) {
-      var d3 = document.createElement('div');
-      d3.className = 'anakin-slot anakin-s3';
-      d3.textContent = s3.toUpperCase();
-      wrap.appendChild(d3);
-    }
-
-    box.appendChild(wrap);
-  }
-
   function memeUrl(tpl, lines, w, bg){
     var targetTpl = tpl;
     var targetBg = bg;
     var targetWidth = w || 1200;
 
     if (tpl === 'aristocrat') { targetTpl = 'custom'; targetBg = ARISTOCRAT_BG; }
+    else if (tpl === 'anakin_custom') {
+      targetTpl = 'right';
+      targetBg = null;
+      var s1 = (lines && lines[0]) ? lines[0] : '_';
+      var s2 = (lines && lines[1]) ? lines[1] : '_';
+      var s3 = (lines && lines[2]) ? lines[2] : '_';
+      lines = [s1, s2, '_', '_', s3];
+    }
     else if (tpl === 'bernie_custom') {
       targetTpl = 'custom';
       targetBg = BERNIE_BG;
@@ -447,21 +382,15 @@
   }
 
   function showMeme(m){
+    var tplCode = m.t;
+    if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
+    var u = memeUrl(tplCode, m.l, 1200, m.bg);
+    current = { meme: m, url: u };
     document.getElementById('stage').classList.remove('hide');
     document.getElementById('fmtName').innerHTML = m.f + '<span>· ' + m.tags.join(', ') + '</span>';
     var textLines = m.l.filter(function(x){ return x && x !== '_'; }).map(function(x){ return x.toUpperCase(); });
     document.getElementById('capText').textContent = textLines.join('\n');
-
-    if (m.t === 'anakin_custom') {
-      current = { meme: m, url: ANAKIN_BG };
-      renderAnakinDOM(document.getElementById('imgbox'), m.l);
-    } else {
-      var tplCode = m.t;
-      if (m.bg === BERNIE_BG) tplCode = 'bernie_custom';
-      var u = memeUrl(tplCode, m.l, 1200, m.bg);
-      current = { meme: m, url: u };
-      renderImg(document.getElementById('imgbox'), u, m.l);
-    }
+    renderImg(document.getElementById('imgbox'), u, m.l);
   }
 
   function renderImg(box, url, lines){
@@ -489,7 +418,7 @@
     copyText(current.meme.f + '\n' + textLines.join('\n'));
   };
   document.getElementById('copyUrl').onclick = function(){ if (current) copyText(current.url); };
-  document.getElementById('openFull').onclick = function(){ if (current) openUrl(current.url); };
+  document.getElementById('openFull').onclick = function(){ if (current) openUrl(memeUrl(current.meme.t === 'custom' && current.meme.bg === BERNIE_BG ? 'bernie_custom' : current.meme.t, current.meme.l, 1400, current.meme.bg)); };
   document.getElementById('remix').onclick = function(){
     var topic = activeTag === 'all' ? '' : ' about ' + activeTag;
     if (window.bankr && bankr.prefillChat) bankr.prefillChat('make me a BANKR meme' + topic);
@@ -504,6 +433,7 @@
   });
 
   var SLOT_LABELS = {
+    'dwight': ['False / Question', 'Statement'],
     'aristocrat': ['Top Comment Section', 'Bottom Comment Section'],
     'anakin_custom': ['Top Left Panel Comment (Anakin)', 'Top Right Panel Comment (Padme)', 'Bottom Right Panel Comment (Padme)'],
     'bernie_custom': ['Single-Line Comment Under "I am once again asking" (Auto-scales font)'],
@@ -547,16 +477,10 @@
     }
 
     var def = TPLS.filter(function(t){ return t[0] === tval; })[0];
+    customUrl = memeUrl(tval, lines, 1200);
     document.getElementById('cstage').classList.remove('hide');
     document.getElementById('cfmtName').textContent = def ? def[1] : tval;
-
-    if (tval === 'anakin_custom') {
-      customUrl = ANAKIN_BG;
-      renderAnakinDOM(document.getElementById('cimgbox'), lines);
-    } else {
-      customUrl = memeUrl(tval, lines, 1200);
-      renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
-    }
+    renderImg(document.getElementById('cimgbox'), customUrl, lines.filter(function(x){ return x && x.trim() && x !== '_'; }));
   };
   document.getElementById('ccopyUrl').onclick = function(){ if (customUrl) copyText(customUrl); };
   document.getElementById('copenFull').onclick = function(){ if (customUrl) openUrl(customUrl); };
