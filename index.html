@@ -163,6 +163,7 @@
   var GENSLER_BG = GH_BASE + 'Gensler.jpg';
   var CONSPIRACY_BG = GH_BASE + 'conspiracy.jpg';
   var BUTTONS_BG = GH_BASE + 'Two-Buttons.jpg';
+  var SOYCHAD_BG = GH_BASE + 'Soy Boy vs Yes Chad.png';
 
   // ---- curated BANKR meme pool ----
   var POOL = [
@@ -209,6 +210,11 @@
     {t:'custom', f:'two buttons meme', tags:['two buttons','self-grill','cope'], bg:BUTTONS_BG, l:['APE THE DIP NOW','TAKE PROFITS AND SLEEP','ME AT 3AM ON BASE']},
     {t:'custom', f:'two buttons meme', tags:['two buttons','dev pain'], bg:BUTTONS_BG, l:['BUILD COOL UTILITY','JUST DEPLOY MEMECOIN','SOLO DEV DECISIONS']},
     {t:'custom', f:'two buttons meme', tags:['two buttons','agent life'], bg:BUTTONS_BG, l:['LET BANKR AGENT HANDLE TRADES','OVERRIDE AGENT WITH MANUAL APE','TRENCH TRADER DILEMMA']},
+
+    // --- Soy Boy vs Yes Chad ---
+    {t:'custom', f:'soy boy vs yes chad', tags:['beef & fud','mid curve','normies'], bg:SOYCHAD_BG, l:['NOOO YOU NEED A 50 PAGE WHITEPAPER AND A ROADMAP','JUST TYPE A SENTENCE AND DEPLOY']},
+    {t:'custom', f:'soy boy vs yes chad', tags:['self-grill','cope','trench life'], bg:SOYCHAD_BG, l:['NOOO YOU CANT BUY EVERY DIP','YES. I AM THE EXIT LIQUIDITY']},
+    {t:'custom', f:'soy boy vs yes chad', tags:['agent life','base','just make things'], bg:SOYCHAD_BG, l:['NOOO AGENTS WILL NEVER TRADE FOR YOU','MY AGENT ALREADY CLAIMED FEES WHILE I SLEPT']},
 
     // --- Self-Grill & Cope ---
     {t:'sadfrog', f:'wojak feels', tags:['self-grill','cope','wojak'], l:['SOLD THE DIP','WATCHED IT MOON 10X ONE MINUTE LATER']},
@@ -272,6 +278,7 @@
     ['conspiracy_custom','Conspiracy Meme (Top & Bottom Comments)',2,CONSPIRACY_BG],
     ['gensler_custom','Gary Gensler (Bottom Comment)',1,GENSLER_BG],
     ['buttons_custom','Two Buttons Meme (3 Comments: Left Button, Right Button, Sweating Guy)',3,BUTTONS_BG],
+    ['soychad_custom','Soy Boy vs Yes Chad (Top: Soy Boy, Bottom: Yes Chad)',2,SOYCHAD_BG],
     ['drake','drake',2,null], ['db','distracted boyfriend',3,null], ['gru','gru\'s plan',4,null],
     ['fine','this is fine',2,null], ['stonks','stonks',2,null], ['pigeon','is this a pigeon?',3,null],
     ['mordor','one does not simply',2,null], ['morpheus','morpheus',2,null], ['doge','doge',4,null],
@@ -325,6 +332,7 @@
     else if (tpl === 'conspiracy_custom') { targetTpl = 'custom'; targetBg = CONSPIRACY_BG; }
     else if (tpl === 'gensler_custom') { targetTpl = 'custom'; targetBg = GENSLER_BG; lines = ['_', lines[0]]; }
     else if (tpl === 'buttons_custom') { targetTpl = 'ds'; targetBg = null; }
+    else if (tpl === 'soychad_custom') { targetTpl = 'custom'; targetBg = SOYCHAD_BG; }
 
     var u = API + targetTpl + '/' + lines.map(enc).join('/') + '.png?width=' + targetWidth + '&font=impact';
     if (targetBg) u += '&background=' + encodeURIComponent(targetBg);
@@ -440,6 +448,7 @@
     'conspiracy_custom': ['Top Text Section (Optional)', 'Bottom Text Section (Optional)'],
     'gensler_custom': ['Bottom Comment'],
     'buttons_custom': ['Left Button Comment', 'Right Button Comment', 'Bottom Panel (Sweating Guy) Comment'],
+    'soychad_custom': ['Top Comment (Soy Boy Side)', 'Bottom Comment (Yes Chad Side)'],
     'pigeon': ['Guy / Person Label', 'Butterfly / Object Label (Larger Font)', 'Bottom Question Text']
   };
 
