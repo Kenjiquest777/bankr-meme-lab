@@ -40,64 +40,64 @@
   .chips{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;}
   .chip{
     background:transparent; border:1px solid var(--line); color:var(--mut);
-    padding:3px 10px; font-size:11px; cursor:pointer; border-radius:99px;
-    font-family:inherit; transition:all .15s;
+    padding:4px 9px; cursor:pointer; font-family:inherit; font-size:11px;
+    border-radius:2px; transition:all .12s;
   }
-  .chip:hover{border-color:var(--acc-dim); color:var(--txt);}
-  .chip.on{border-color:var(--acc); color:var(--acc);}
+  .chip:hover{color:var(--txt); border-color:var(--acc-dim);}
+  .chip.on{background:var(--acc-dim); color:#fff; border-color:var(--acc);}
   .stage{
-    background:var(--panel); border:1px solid var(--line); border-radius:6px;
-    padding:14px; margin-bottom:12px;
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:4px; padding:14px; margin-bottom:14px;
   }
-  .fmt{
-    color:var(--acc); font-size:11px; text-transform:uppercase; letter-spacing:1.5px;
-    margin-bottom:8px;
-  }
-  .fmt span{color:var(--mut); text-transform:none; letter-spacing:0; margin-left:8px;}
+  .fmt{color:var(--acc); font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:8px; letter-spacing:.5px;}
+  .fmt span{color:var(--mut); font-weight:400; text-transform:lowercase; font-size:11px; margin-left:6px;}
   .imgbox{
-    background:#000; border:1px solid var(--line); border-radius:4px;
+    position:relative; width:100%; min-height:240px; max-height:480px;
+    background:#050806; border:1px solid var(--line); border-radius:3px;
     display:flex; align-items:center; justify-content:center;
-    min-height:200px; overflow:hidden; position:relative; margin-bottom:10px;
+    overflow:hidden; margin-bottom:10px;
   }
-  .imgbox img{max-width:100%; max-height:440px; display:block;}
-  .loading{color:var(--mut); font-size:12px; padding:40px 0; letter-spacing:1px;}
-  .fallback{padding:26px 20px; text-align:center;}
-  .fallback .fb-line{font-size:15px; font-weight:700; color:var(--txt); margin:5px 0; text-transform:uppercase;}
-  .fallback .fb-note{color:var(--mut); font-size:11px; margin-top:14px;}
+  .imgbox img{max-width:100%; max-height:480px; object-fit:contain; display:block;}
+  .imgbox .loading{color:var(--mut); font-size:11px;}
   .cap{
-    background:var(--panel2); border:1px solid var(--line); border-radius:4px;
-    padding:10px 12px; margin-bottom:10px; white-space:pre-wrap; font-size:12.5px;
-    color:var(--txt);
+    background:var(--panel2); border-left:3px solid var(--acc);
+    padding:8px 10px; font-size:12px; line-height:1.4; color:var(--txt);
+    white-space:pre-wrap; word-break:break-word; margin-bottom:10px;
   }
-  .btnrow{display:flex; flex-wrap:wrap; gap:6px;}
+  .btnrow{display:flex; gap:6px; flex-wrap:wrap;}
   button.act{
-    background:var(--panel2); border:1px solid var(--acc-dim); color:var(--acc);
-    padding:7px 14px; cursor:pointer; font-family:inherit; font-size:12px;
+    background:var(--panel2); border:1px solid var(--line); color:var(--txt);
+    padding:6px 12px; cursor:pointer; font-family:inherit; font-size:11px;
     border-radius:3px; transition:all .15s;
   }
-  button.act:hover{background:var(--acc); color:#06210c; border-color:var(--acc);}
+  button.act:hover{border-color:var(--acc); color:var(--acc);}
   button.big{
-    width:100%; padding:12px; font-size:14px; font-weight:700;
-    background:var(--acc); color:#06210c; border:none; border-radius:4px;
-    cursor:pointer; font-family:inherit; letter-spacing:1px; margin-bottom:12px;
-    transition:transform .08s, filter .15s;
+    background:var(--acc); color:#06210c; border:none;
+    font-weight:700; font-size:13px; padding:10px 16px; width:100%;
+    cursor:pointer; font-family:inherit; border-radius:3px;
+    letter-spacing:.5px; margin-bottom:14px; transition:opacity .15s;
   }
-  button.big:hover{filter:brightness(1.1);}
-  button.big:active{transform:scale(.985);}
+  button.big:hover{opacity:.9;}
+  .fallback{
+    padding:16px; text-align:center; color:var(--txt); width:100%;
+  }
+  .fallback .fb-line{font-size:14px; font-weight:700; margin:4px 0; color:var(--acc);}
+  .fallback .fb-note{font-size:10px; color:var(--mut); margin-top:8px;}
+  label{display:block; font-size:11px; color:var(--mut); margin:8px 0 3px; text-transform:uppercase; letter-spacing:.5px;}
+  select, input[type=text]{
+    width:100%; background:var(--panel2); border:1px solid var(--line);
+    color:var(--txt); font-family:inherit; font-size:12px;
+    padding:7px 9px; border-radius:3px; outline:none; margin-bottom:6px;
+  }
+  select:focus, input[type=text]:focus{border-color:var(--acc);}
+  .hint{color:var(--mut); font-size:10px; margin-top:8px; line-height:1.4;}
   .toast{
-    position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
-    background:var(--acc); color:#06210c; padding:7px 16px; border-radius:3px;
-    font-size:12px; font-weight:700; opacity:0; pointer-events:none;
-    transition:opacity .2s; z-index:9;
+    position:fixed; bottom:16px; right:16px;
+    background:var(--acc); color:#06210c; font-weight:700;
+    padding:6px 14px; border-radius:3px; font-size:11px;
+    opacity:0; pointer-events:none; transition:opacity .2s; z-index:99;
   }
   .toast.show{opacity:1;}
-  label{display:block; color:var(--mut); font-size:11px; margin:10px 0 4px; text-transform:uppercase; letter-spacing:1px;}
-  select, input[type=text]{
-    width:100%; background:var(--panel2); border:1px solid var(--line); color:var(--txt);
-    padding:8px 10px; font-family:inherit; font-size:12.5px; border-radius:3px; outline:none;
-  }
-  select:focus, input:focus{border-color:var(--acc-dim);}
-  .hint{color:var(--mut); font-size:11px; margin-top:10px;}
   .hide{display:none;}
   @media(max-width:480px){ .wrap{padding:10px 8px 30px;} h1{font-size:14px;} }
 </style>
@@ -163,7 +163,7 @@
   var GENSLER_BG = GH_BASE + 'Gensler.jpg';
   var CONSPIRACY_BG = GH_BASE + 'conspiracy.jpg';
   var BUTTONS_BG = GH_BASE + 'Two-Buttons.jpg';
-  var SOYCHAD_BG = GH_BASE + 'Soy Boy vs Yes Chad.png';
+  var SOYCHAD_BG = GH_BASE + 'Soy-Boy-vs-Yes-Chad.png';
 
   // ---- curated BANKR meme pool ----
   var POOL = [
@@ -178,186 +178,111 @@
     {t:'dwight', f:'dwight schrute', tags:['beef & fud','dwight','mid curve'], l:['LOWER PRICE MEANS FAILED AGENT?','FALSE. AGENTS EXECUTE REGARDLESS OF YOUR EMOTIONS']},
     {t:'disastergirl', f:'disaster girl', tags:['beef & fud','trench life'], l:['WATCHING CT PROTOCOL BEEF','WHILE MY AGENT AUTO-CLAIMS BNKR']},
     {t:'kermit', f:'but that\'s none of my business', tags:['beef & fud','mid curve'], l:['TIMELINE BICKERING OVER 50 PAGE WHITEPAPERS','BUT THATS NONE OF MY BUSINESS']},
-    {t:'spongebob', f:'mocking spongebob', tags:['beef & fud','base'], l:['bAnKr dOesNt rUn bAsE','bAnKr dOesNt rUn bAsE']},
-    {t:'woman-cat', f:'woman yelling at cat', tags:['beef & fud','trench life'], l:['YOU APED BASED ON A TWEET','IT WAS A CLEARLY LABELED NARRATIVE SHIFT']},
-    {t:'cmm', f:'change my mind', tags:['beef & fud','base'], l:['CT DRAMA IS JUST UNPAID MARKETING. CHANGE MY MIND']},
-    {t:'custom', f:'conspiracy meme', tags:['conspiracy','self-grill','beef & fud'], bg:CONSPIRACY_BG, l:['THE CHART ISNT CRASHING','IT IS DIVERTING LIQUIDITY TO THE NEXT LEG UP']},
+    {t:'doge', f:'doge', tags:['beef & fud','agent life'], l:['such governance drama','much autonomous execution','very onchain','wow']},
+    {t:'fine', f:'this is fine', tags:['beef & fud','volatility','trench life'], l:['GAS SPIKES TO 300 GWEI','THIS IS FINE']},
+    {t:'both', f:'why not both?', tags:['beef & fud','0xDeployer'], l:['DEBATING WHETHER TO WRITE A THREAD OR SHIP CODE','WHY NOT BOTH?']},
+    {t:'rollsafe', f:'roll safe', tags:['beef & fud','cope','mid curve'], l:['CANNOT GET LIQUIDATED','IF YOUR AGENT MANAGED THE SPREAD BEFORE YOU WOKE UP']},
+    {t:'fry', f:'futurama fry', tags:['beef & fud','mid curve'], l:['NOT SURE IF GENUINE ONCHAIN INNOVATION','OR JUST ANOTHER 48 HOUR FARM']},
+    {t:'buzz', f:'buzz lightyear', tags:['beef & fud','agent life'], l:['ANALYSTS ANALYSTS EVERYWHERE','NOT A SINGLE ONE RUNNING CODE']},
 
-    // --- Aristocrats ---
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','self-grill','club'], bg:ARISTOCRAT_BG, l:['US EXECUTING TRADES FROM BED','PEOPLE WRITING 50 PAGE WHITE PAPERS']},
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','trench life'], bg:ARISTOCRAT_BG, l:['PRE-SEED INVESTORS WATCHING US','NUKING OUR BAGS ON A 3AM DIP']},
-    {t:'custom', f:'aristocrats looking down', tags:['aristocrats','mid curve'], bg:ARISTOCRAT_BG, l:['BANKR AGENT EXECUTING LIMIT ORDERS','TIMELINE DEBATING RSI DIVERGENCE']},
+    // --- Custom Image Backgrounds (Restored & Functional) ---
+    {t:'custom', f:'the aristocrat', tags:['0xDeployer','mid curve','normies'], l:['I SIMPLY INSTRUCTED THE AGENT TO REBALANCE AT DAWN','ONE DOES NOT MANUALLY SIGN TRANSACTIONS IN 2026'], bg:ARISTOCRAT_BG},
+    {t:'custom', f:'the aristocrat', tags:['agent life','0xDeployer'], l:['AH YES, A TRADER WHO SLEEPS THROUGH REBALANCES','HOW DELIGHTFULLY CHARMING'], bg:ARISTOCRAT_BG},
+    {t:'custom', f:'the aristocrat', tags:['normies','mid curve'], l:['PRAY TELL, DO PEOPLE STILL CHECK CHARTS MANUALLY?','HOW EXQUISITELY PRIMITIVE'], bg:ARISTOCRAT_BG},
+    {t:'custom', f:'the aristocrat', tags:['agent life','0xDeployer'], l:['YOU SIGN INDIVIDUAL TRANSACTIONS?','HOW CHARMINGLY QUAINT'], bg:ARISTOCRAT_BG},
+    {t:'custom', f:'bernie asking', tags:['cope','trench life','volatility'], l:['_','FOR JUST ONE GREEN CANDLE ON MY SHITCOIN'], bg:BERNIE_BG},
+    {t:'custom', f:'bernie asking', tags:['0xDeployer','trench life'], l:['_','TO STOP CALLING MY AGENT EXPERIMENT A FINANCIAL CRIME'], bg:BERNIE_BG},
+    {t:'custom', f:'bernie asking', tags:['beef & fud','mid curve'], l:['_','TO ADMIT THAT MANUAL EXECUTION IS OBSOLETE'], bg:BERNIE_BG},
+    {t:'custom', f:'gary gensler', tags:['beef & fud','agent life'], l:['_','EVERY AUTONOMOUS AGENT ON BASE IS AN UNREGISTERED BROKER-DEALER'], bg:GENSLER_BG},
+    {t:'custom', f:'gary gensler', tags:['beef & fud','0xDeployer'], l:['_','YOU CANNOT JUST HAVE AI AGENTS ARBITRAGING ACROSS PROTOCOLS WITHOUT A 900 PAGE FILING'], bg:GENSLER_BG},
+    {t:'custom', f:'gary gensler', tags:['beef & fud','trench life'], l:['_','I AM ONCE AGAIN ASKING WHERE THE COMPLIANCE OFFICER IS LOCATED IN THIS PYTHON SCRIPT'], bg:GENSLER_BG},
+    {t:'custom', f:'charlie conspiracy', tags:['trench life','beef & fud','mid curve'], l:['THERE IS NO DEVELOPER','THE ENTIRE PROTOCOL IS RUN BY THREE AGENTS IN A TRENCHCOAT'], bg:CONSPIRACY_BG},
+    {t:'custom', f:'charlie conspiracy', tags:['agent life','0xDeployer'], l:['AND THEN THE AGENT BUYS THE TOKEN IT DEPLOYED','AND TIPS THE DEPLOYER WALLET IN THE SAME BLOCK'], bg:CONSPIRACY_BG},
+    {t:'ds', f:'daily struggle (two buttons)', tags:['agent life','mid curve'], l:['DEPLOY ANOTHER AUTONOMOUS TRADING AGENT','FIX THE BUG THAT BOUGHT 4000 DOLLARS OF MEMECOINS AT 3AM','SWEATING TRADER']},
+    {t:'ds', f:'daily struggle (two buttons)', tags:['trench life','mid curve'], l:['SLEEP 8 HOURS LIKE A NORMAL HUMAN','WATCH THE AGENT LOGS UPDATE IN REAL TIME','SWEATING TRADER']},
+    {t:'custom', f:'soy boy vs yes chad', tags:['agent life','normies','0xDeployer'], l:['NOOO YOU CANNOT JUST LET AN AI EXECUTE DEFI SWAPS WITHOUT HUMAN OVERSIGHT','YES.'], bg:SOYCHAD_BG},
+    {t:'right', f:'anakin padme', tags:['agent life','0xDeployer'], l:['I DEPLOYED AN AUTONOMOUS AGENT TODAY','TO AUTOMATE RISK MANAGEMENT RIGHT?','...','...','TO AUTOMATE RISK MANAGEMENT RIGHT?']},
+    {t:'right', f:'anakin padme', tags:['trench life','volatility'], l:['MY AGENT JUST EXECUTED A CROSS-CHAIN SWAP','WE PROFITED RIGHT?','...','...','WE PROFITED RIGHT?']},
 
-    // --- Star Wars Anakin ---
-    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','self-grill','cope'], l:['I SET A STOP LOSS','SO MY CAPITAL IS SAFE RIGHT?','RIGHT?']},
-    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','agent life'], l:['I DEPLOYED A COIN WITH BANKR','IT HAS A 5 YEAR ROADMAP RIGHT?','RIGHT?']},
-    {t:'anakin_custom', f:'star wars anakin & padme', tags:['star wars','trench life'], l:['I BOUGHT THE DIP','THIS IS THE BOTTOM RIGHT?','RIGHT?']},
-
-    // --- Bernie Sanders Support ---
-    {t:'custom', f:'bernie sanders support', tags:['bernie','cope','club'], bg:BERNIE_BG, l:['_','YOUR LIQUIDITY AT THE LOCAL BOTTOM']},
-    {t:'custom', f:'bernie sanders support', tags:['bernie','dev pain'], bg:BERNIE_BG, l:['_','MORE SOL UNSOLD FOR GAS']},
-    {t:'custom', f:'bernie sanders support', tags:['bernie','self-grill'], bg:BERNIE_BG, l:['_','ONE MORE CHANCE NOT TO APE THE HIGHS']},
-
-    // --- Conspiracy Meme ---
-    {t:'custom', f:'conspiracy meme', tags:['conspiracy','trench life'], bg:CONSPIRACY_BG, l:['EVERY RED CANDLE','IS A TEST BY DEPLOYER TO SEEK TRUE HOLDERS']},
-    {t:'custom', f:'conspiracy meme', tags:['conspiracy','cope'], bg:CONSPIRACY_BG, l:['MY BAG ISNT DOWN 80 PERCENT','IT IS HEALTHY RETESTING OF THE ATOMIC ATTO-CAP']},
-
-    // --- Gary Gensler ---
-    {t:'custom', f:'gensler', tags:['gensler','self-grill'], bg:GENSLER_BG, l:['_','WHEN YOU TRY TO EXPLAIN PROOF OF STAKE TO REGULATORS']},
-    {t:'custom', f:'gensler', tags:['gensler','normies'], bg:GENSLER_BG, l:['_','LOOKING AT MY 100TH MEMECOIN TRANSACTIONS ON CHAIN']},
-
-    // --- Two Buttons Meme ---
-    {t:'custom', f:'two buttons meme', tags:['two buttons','self-grill','cope'], bg:BUTTONS_BG, l:['APE THE DIP NOW','TAKE PROFITS AND SLEEP','ME AT 3AM ON BASE']},
-    {t:'custom', f:'two buttons meme', tags:['two buttons','dev pain'], bg:BUTTONS_BG, l:['BUILD COOL UTILITY','JUST DEPLOY MEMECOIN','SOLO DEV DECISIONS']},
-    {t:'custom', f:'two buttons meme', tags:['two buttons','agent life'], bg:BUTTONS_BG, l:['LET BANKR AGENT HANDLE TRADES','OVERRIDE AGENT WITH MANUAL APE','TRENCH TRADER DILEMMA']},
-
-    // --- Soy Boy vs Yes Chad ---
-    {t:'custom', f:'soy boy vs yes chad', tags:['beef & fud','mid curve','normies'], bg:SOYCHAD_BG, l:['NOOO YOU NEED A 50 PAGE WHITEPAPER AND A ROADMAP','JUST TYPE A SENTENCE AND DEPLOY']},
-    {t:'custom', f:'soy boy vs yes chad', tags:['self-grill','cope','trench life'], bg:SOYCHAD_BG, l:['NOOO YOU CANT BUY EVERY DIP','YES. I AM THE EXIT LIQUIDITY']},
-    {t:'custom', f:'soy boy vs yes chad', tags:['agent life','base','just make things'], bg:SOYCHAD_BG, l:['NOOO AGENTS WILL NEVER TRADE FOR YOU','MY AGENT ALREADY CLAIMED FEES WHILE I SLEPT']},
-
-    // --- Self-Grill & Cope ---
-    {t:'sadfrog', f:'wojak feels', tags:['self-grill','cope','wojak'], l:['SOLD THE DIP','WATCHED IT MOON 10X ONE MINUTE LATER']},
-    {t:'cryingfloor', f:'crying wojak hours', tags:['cope','wojak','trench life'], l:['ITS NOT A LOSS UNLESS I SELL','ITS NOT A LOSS UNLESS I SELL']},
-    {t:'fine', f:'this is fine', tags:['self-grill','cope','volatility'], l:['PORTFOLIO DOWN 60 PERCENT IN AN HOUR','THIS IS FINE. WE ARE STILL EARLY']},
-    {t:'midwit', f:'mid curve', tags:['self-grill','mid curve'], l:['JUST LET BANKR TRADE','NOOO I MUST SPEND 8 HOURS ANALYZING 15M CANDLES','JUST LET BANKR TRADE']},
-    {t:'harold', f:'hide the pain harold', tags:['cope','self-grill'], l:['TELLING MY FRIENDS I AM IN IT FOR THE TECHNOLOGY','TELLING MY FRIENDS I AM IN IT FOR THE TECHNOLOGY']},
-
-    // --- Trench Life & Dev Pain ---
-    {t:'drake', f:'drake', tags:['dev pain','just make things'], l:['WRITING 100 PAGES OF DOCUMENTATION','TYPING A PROMPT AND BUILDING IT IN 30 SECONDS']},
-    {t:'gru', f:'gru\'s plan', tags:['dev pain','self-grill'], l:['PROMISE A SMOOTH LAUNCH','DEPLOY CONTRACT ON MAINNET','FAT FINGER THE INITIAL LP LIQUIDITY','FAT FINGER THE INITIAL LP LIQUIDITY']},
-    {t:'stonks', f:'stonks', tags:['trench life','cope'], l:['GAS SPENT WAS HIGHER THAN PROFIT','STONKS']},
-
-    // --- Just Make Things & 0xDeployer ---
-    {t:'drake', f:'drake', tags:['just make things','one-liner'], l:['WAITING 6 MONTHS FOR A DEV TEAM ROADMAP','PLEASE BROS YOU CAN JUST MAKE THINGS']},
-    {t:'cmm', f:'change my mind', tags:['just make things','0xDeployer'], l:['PLEASE BROS YOU CAN JUST MAKE THINGS. CHANGE MY MIND']},
-    {t:'morpheus', f:'morpheus', tags:['just make things'], l:['WHAT IF I TOLD YOU','YOU CAN JUST MAKE THINGS']},
-    {t:'rollsafe', f:'roll safe', tags:['just make things'], l:['CANT COMPLAIN ABOUT MISSING FEATURES','IF YOU CAN JUST MAKE THINGS IN 30 SECONDS']},
-    {t:'gb', f:'galaxy brain', tags:['just make things'], l:['ASKING FOR A FEATURE','SUBMITTING A TICKET','WAITING FOR NEXT SPRINT','SAYING PLEASE BROS YOU CAN JUST MAKE THINGS AND BUILDING IT']},
-    {t:'doge', f:'doge', tags:['just make things'], l:['SUCH BUILD','VERY MAKE THINGS','MUCH BRO','WOW']},
-    {t:'woman-cat', f:'woman yelling at cat', tags:['just make things'], l:['YOU NEED A WHITEPAPER AND PITCH DECK','PLEASE BROS YOU CAN JUST MAKE THINGS']},
-    {t:'success', f:'success kid', tags:['just make things'], l:['TYPED ONE PROMPT','APP BUILT IN 20 SECONDS. YOU CAN JUST MAKE THINGS']},
-    {t:'leo', f:'leo cheers', tags:['0xDeployer','lore'], l:['TO DEPLOYER','SHIPPING WHILE THE TIMELINE ARGUES']},
-    {t:'yodawg', f:'yo dawg', tags:['0xDeployer','deploys'], l:['YO DAWG DEPLOYER HEARD YOU LIKE SHIPPING','SO HE BUILT AN AGENT THAT SHIPS FOR YOU']},
-    {t:'astronaut', f:'always has been', tags:['0xDeployer','base'], l:['WAIT DEPLOYER IS BUILDING THE AGENT ECONOMY','ALWAYS HAS BEEN']},
-
-    // --- Base & Bankr Bish ---
-    {t:'cmm', f:'change my mind', tags:['base','bankr bish'], l:['BANKR RUNS BASE. CHANGE MY MIND']},
-    {t:'astronaut', f:'always has been', tags:['base','one-liner'], l:['WAIT BANKR RUNS THE BASE AGENT ECONOMY','ALWAYS HAS BEEN']},
-    {t:'oprah', f:'oprah', tags:['base','agent life'], l:['BANKR RUNS BASE','AND EVERYBODY GETS AN AGENT']},
-    {t:'success', f:'success kid', tags:['base','club'], l:['BANKR RUNS BASE','MY AGENT PRINTS BNKR DAILY']},
-    {t:'morpheus', f:'morpheus', tags:['base','bankr bish'], l:['WHAT IF I TOLD YOU','BANKR RUNS BASE BISH']},
-    {t:'joker', f:'joker', tags:['base'], l:['OTHER PROJECTS TALK ABOUT AGENTS','BANKR ACTUALLY RUNS BASE']},
-    {t:'custom', f:'bankr bot', tags:['bankr bot','base'], bg:BOTBG, l:['BANKR RUNS BASE','GM TO ALL THE AGENTS']},
-    {t:'custom', f:'bankr bot', tags:['bankr bot','0xDeployer'], bg:BOTBG, l:['DEPLOYER SHIPPED AGAIN','TIME TO BUILD']},
-    {t:'custom', f:'bankr bot', tags:['bankr bot','just make things'], bg:BOTBG, l:['PLEASE BROS','YOU CAN JUST MAKE THINGS']},
-
-    // --- Agent Life & Lore ---
-    {t:'drake', f:'drake', tags:['agent life'], l:['WATCHING CHARTS UNTIL 4AM','YOUR AGENT WATCHES THEM SO YOU DONT HAVE TO']},
-    {t:'db', f:'distracted boyfriend', tags:['agent life'], l:['A CHAT BOX THAT TRADES','ME','MY MANUAL ORDER BOOK']},
-    {t:'buzz', f:'buzz lightyear', tags:['agent life'], l:['AGENTS','AGENTS EVERYWHERE ON BASE']},
-    {t:'doge', f:'doge', tags:['agent life'], l:['SUCH AGENT','VERY ONCHAIN','MUCH BNKR','WOW']},
-    {t:'morpheus', f:'morpheus', tags:['one-liner'], l:['WHAT IF I TOLD YOU','YOU CAN TRADE BY TYPING A SENTENCE']},
-    {t:'philosoraptor', f:'philosoraptor', tags:['agent life'], l:['IF AGENTS TRADE FOR US','WHO WATCHES THE CHARTS']},
-    {t:'oprah', f:'oprah', tags:['agent life'], l:['YOU GET AN AGENT','EVERYBODY GETS AN AGENT']},
-    {t:'yodawg', f:'yo dawg', tags:['agent life'], l:['YO DAWG I HEARD YOU LIKE AGENTS','SO WE GOT AN AGENT TO RUN YOUR AGENTS']},
-    {t:'leo', f:'leo cheers', tags:['club'], l:['TO EVERYONE WHO HELD BNKR','THROUGH THE CHOP']},
-    {t:'success', f:'success kid', tags:['club'], l:['JOINED BANKR CLUB','AGENT CLAIMS FEES WHILE I SLEEP']},
-    {t:'astronaut', f:'always has been', tags:['lore','ham & mfers'], l:['WAIT THE BANKR DEPLOYER IS THE HAM GUY','ALWAYS HAS BEEN']},
-    {t:'cmm', f:'change my mind', tags:['ham & mfers'], l:['WE ARE ALL MFERS EVEN THE AGENTS. CHANGE MY MIND']},
-
-    // --- LienFi / Tax Liens ($LFI) ---
-    {t:'drake', f:'drake', tags:['lienfi','tax liens'], l:['EXPLAINING TAX LIENS AT THANKSGIVING AGAIN','JUST SENDING THE LFI CHART']},
-    {t:'cmm', f:'change my mind', tags:['lienfi','tax liens','base'], l:['THE MOST BORING ASSET CLASS IN AMERICA MAKES THE BEST ONCHAIN YIELD. CHANGE MY MIND']},
-    {t:'morpheus', f:'morpheus', tags:['lienfi','tax liens'], l:['WHAT IF I TOLD YOU','TAX LIENS WERE PRINTING BEFORE YOUR GRANDPA WAS BORN']},
-    {t:'fine', f:'this is fine', tags:['lienfi','tax liens','cope'], l:['PROPERTY TAXES DUE AND COUNTY LETTERS PILING UP','THIS IS FINE. I AM THE LIENHOLDER NOW']},
-    {t:'astronaut', f:'always has been', tags:['lienfi','tax liens','base'], l:['WAIT TAX LIENS ARE JUST ONCHAIN YIELD NOW','ALWAYS HAS BEEN']},
-    {t:'success', f:'success kid', tags:['lienfi','tax liens'], l:['NEIGHBOR SKIPPED HIS PROPERTY TAXES','MY LFI BAG FELT THAT']},
-    {t:'philosoraptor', f:'philosoraptor', tags:['lienfi','tax liens'], l:['IF THE COUNTY SELLS THE LIEN','WHO REALLY OWNS THE HOUSE']},
-    {t:'woman-cat', f:'woman yelling at cat', tags:['lienfi','tax liens'], l:['YOU CANT PUT TAX LIENS ON A BLOCKCHAIN','LFI ALREADY DID']},
-    {t:'stonks', f:'stonks', tags:['lienfi','tax liens'], l:['NEIGHBOR SKIPS PROPERTY TAXES','STONKS']},
-    {t:'midwit', f:'mid curve', tags:['lienfi','tax liens','mid curve'], l:['JUST HOLD LFI','NOOO I MUST DRIVE TO THE COURTHOUSE AUCTION WITH A CASHIERS CHECK','JUST HOLD LFI']},
-    {t:'anakin_custom', f:'star wars anakin & padme', tags:['lienfi','tax liens','star wars'], l:['WE TOKENIZED TAX LIENS','SO ANYONE CAN ACCESS THE YIELD RIGHT?','RIGHT?']},
-    {t:'rollsafe', f:'roll safe', tags:['lienfi','tax liens','one-liner'], l:['CANT FEAR THE TAXMAN','IF YOU ARE THE LIENHOLDER']},
-    {t:'gb', f:'galaxy brain', tags:['lienfi','tax liens'], l:['PAYING PROPERTY TAXES ON TIME','LEARNING WHAT HAPPENS WHEN NEIGHBORS DONT','BIDDING AT COUNTY LIEN AUCTIONS','FARMING DELINQUENT TAX YIELD ON BASE WITH LFI']},
-    {t:'harold', f:'hide the pain harold', tags:['lienfi','tax liens','cope'], l:['TELLING THE COUNTY CLERK','I AM JUST HERE FOR THE YIELD']},
-    {t:'doge', f:'doge', tags:['lienfi','tax liens'], l:['SUCH LIEN','VERY DELINQUENT','MUCH YIELD','WOW']},
-
-    // --- 2026 Trending: Agentic Economy & Tokenized Stocks ---
-    {t:'panik-kalm-panik', f:'panik kalm panik', tags:['2026','agent life','volatility'], l:['AGENT SELLS THE TOP','KALM','AGENT BUYS BACK LOWER']},
-    {t:'wonka', f:'condescending wonka', tags:['2026','agent life','mid curve'], l:['OH YOU STILL TRADE MANUALLY?','TELL ME MORE ABOUT YOUR 4AM CANDLE WATCHING']},
-    {t:'pigeon', f:'is this a pigeon?', tags:['2026','tokenized stocks','base'], l:['A TOKENIZED STOCK ON ROBINHOOD CHAIN','IS THIS THE AGENTIC ECONOMY?']},
-    {t:'mordor', f:'one does not simply', tags:['2026','agent life'], l:['ONE DOES NOT SIMPLY','OUT-TRADE AN AGENT THAT NEVER SLEEPS']},
-    {t:'grumpycat', f:'grumpy cat', tags:['2026','cope','trench life'], l:['YOU WANT ME TO HOLD THROUGH ANOTHER 80 PERCENT DIP','NO']},
-    {t:'feelsgood', f:'feels good man', tags:['2026','club','agent life'], l:['AGENT CLAIMED FEES','WHILE I WAS ASLEEP']},
-    {t:'wonka', f:'condescending wonka', tags:['2026','tokenized stocks','normies'], l:['YOU BOUGHT AAPL ON A TRADITIONAL BROKER','TELL ME MORE ABOUT YOUR SETTLEMENT TIMES']},
-    {t:'panik-kalm-panik', f:'panik kalm panik', tags:['2026','tokenized stocks'], l:['STOCK PAIRED TOKEN DUMPS','KALM','IT IS JUST THE AGENT REBALANCING']},
-    {t:'mordor', f:'one does not simply', tags:['2026','just make things'], l:['ONE DOES NOT SIMPLY','WAIT FOR A DEV TEAM WHEN YOU CAN JUST MAKE THINGS']},
-    {t:'pigeon', f:'is this a pigeon?', tags:['2026','agent life','base'], l:['AN AI AGENT MANAGING MY PORTFOLIO','IS THIS THE FUTURE OF FINANCE?']},
-    {t:'grumpycat', f:'grumpy cat', tags:['2026','mid curve','normies'], l:['YOU WROTE A 50 PAGE WHITEPAPER','I DEPLOYED IN 30 SECONDS']},
-    {t:'feelsgood', f:'feels good man', tags:['2026','base','agent life'], l:['BANKR RUNS BASE','AND MY AGENT RUNS MY BAGS']},
-
-    // --- 2026 Trending: New Templates ---
-    {t:'slap', f:'will smith slapping chris rock', tags:['2026','trench life','cope'], l:['ME TRYING TO ENJOY THE WEEKEND','MONDAY OPENING CANDLE']},
-    {t:'winter', f:'brace yourselves', tags:['2026','agent life'], l:['BRACE YOURSELVES','THE AGENTS ARE COMING']},
-    {t:'interesting', f:'most interesting man', tags:['2026','agent life','one-liner'], l:['I DONT OFTEN TRADE','BUT WHEN I DO MY AGENT DOES IT FOR ME']},
-    {t:'firsttry', f:'first try', tags:['2026','deploys','just make things'], l:['DEPLOYED A COIN','FIRST TRY']},
-    {t:'bad', f:'you should feel bad', tags:['2026','mid curve','normies'], l:['YOUR MEME IS BAD','AND YOU SHOULD FEEL BAD']},
-    {t:'kramer', f:'kramer whats going on in there', tags:['2026','agent life'], l:['KRAMER WHATS GOING ON IN THERE','MY AGENT REBALANCING MY PORTFOLIO']},
-    {t:'khaby-lame', f:'khaby lame shrug', tags:['2026','cope','trench life'], l:['BAD MOOD?','LAUGH AT MEMES']},
-    {t:'sad-obama', f:'sad barack obama', tags:['2026','cope','mid curve'], l:['SAD OBAMA','DOESNT THINK YOULL HOLD']},
-    {t:'same', f:'theyre the same picture', tags:['2026','agent life','base'], l:['MY AGENT TRADING','ME TRADING','THE SAME PICTURE']},
-    {t:'spiderman', f:'spiderman pointing', tags:['2026','agent life'], l:['ME POINTING AT MY AGENT','MY AGENT POINTING AT ME']},
-    {t:'captain-america', f:'captain america elevator', tags:['2026','just make things'], l:['HAVE YOU EVER BUILT AN APP','NO WHY','ITS TIME CONSUMING']},
-    {t:'ackbar', f:'its a trap', tags:['2026','trench life','volatility'], l:['_','ITS A TRAP']},
-    {t:'aint-got-time', f:'sweet brown', tags:['2026','agent life'], l:['WATCHING CHARTS','AINT NOBODY GOT TIME FOR THAT']},
-    {t:'bender', f:'build my own theme park', tags:['2026','just make things'], l:['IM GOING TO BUILD MY OWN PROTOCOL','WITH AGENTS AND HOOKERS']},
-    {t:'bilbo', f:'why shouldnt i keep it', tags:['2026','cope','trench life'], l:['AFTER ALL WHY NOT','WHY SHOULDNT I KEEP MY BAGS']},
-    {t:'both', f:'why not both', tags:['2026','agent life','base'], l:['AGENTS OR MANUAL TRADING','WHY NOT BOTH']},
-    {t:'box', f:'whats in the box', tags:['2026','trench life'], l:['_','WHATS IN THE BOX']},
-    {t:'cb', f:'confession bear', tags:['2026','self-grill','cope'], l:['I BOUGHT THE TOP','AND TOLD EVERYONE IT WAS THE DIP']},
-    {t:'cbg', f:'comic book guy', tags:['2026','mid curve'], l:['_','WORST TRADE EVER']},
-    {t:'center', f:'center for ants', tags:['2026','mid curve','normies'], l:['WHAT IS THIS','A CENTER FOR ANTS']}
+    // --- Standard Curated Templates ---
+    {t:'drake', f:'drake hotline bling', tags:['mid curve','agent life'], l:['MANUALLY CHECKING CHARTS AT 3 AM','SETTING AN AGENT TO AUTO-DCA ON BASE']},
+    {t:'drake', f:'drake hotline bling', tags:['0xDeployer','agent life'], l:['WRITING 40 TWEETS ABOUT YOUR ROADMAP','SHIPPING AN AGENT THAT EXECUTES ONCHAIN']},
+    {t:'drake', f:'drake hotline bling', tags:['normies','mid curve'], l:['SIGNING 12 METAMASK POPUPS FOR ONE SWAP','TYPING ONE PROMPT TO BANKR']},
+    {t:'drake', f:'drake hotline bling', tags:['trench life','volatility'], l:['PANIC SELLING THE DIP','LET THE AGENT SNIPE THE REBOUND']},
+    {t:'spiderman', f:'spider-man pointing', tags:['beef & fud','trench life'], l:['DEFI INFLUENCERS ACCUSING EACH OTHER OF DUMPING','THEY BOTH BOUGHT THE SAME PEAK']},
+    {t:'spiderman', f:'spider-man pointing', tags:['agent life','0xDeployer'], l:['MY TRADING AGENT','ANOTHER TRADING AGENT ARBITRAGING AGAINST IT']},
+    {t:'pigeon', f:'is this a pigeon?', tags:['normies','mid curve'], l:['MID CURVE TRADER','A 2% PRICE CORRECTION','IS THIS A PROTOCOL COLLAPSE?']},
+    {t:'pigeon', f:'is this a pigeon?', tags:['0xDeployer','agent life'], l:['TRADFI DEV','AN AGENT WITH A CRYPTO WALLET','IS THIS AN UNREGULATED HEDGE FUND?']},
+    {t:'wonka', f:'condescending wonka', tags:['normies','mid curve'], l:['TELL ME MORE ABOUT HOW YOU TRADE BETTER','THAN AN AGENT WITH ZERO EMOTIONS AND 24/7 UPTIME']},
+    {t:'wonka', f:'condescending wonka', tags:['beef & fud','0xDeployer'], l:['OH YOU SPENT THREE MONTHS ON A WHITEPAPER?','THAT IS NICE, THE AGENT DEPLOYED YESTERDAY']},
+    {t:'oprah', f:'oprah you get a', tags:['trench life','agent life'], l:['YOU GET AN AGENT! YOU GET AN AGENT!','EVERY WALLET GETS AN AGENT!']},
+    {t:'doge', f:'doge', tags:['agent life','0xDeployer'], l:['such autonomous','much base chain','very prompt to tx','wow bnkr']},
+    {t:'doge', f:'doge', tags:['trench life','volatility'], l:['many dip','such discount','very agent snipe','wow']},
+    {t:'fine', f:'this is fine', tags:['volatility','trench life'], l:['PORTFOLIO DOWN 40 PERCENT IN 20 MINUTES','THIS IS FINE, AGENT IS ACCUMULATING']},
+    {t:'fine', f:'this is fine', tags:['0xDeployer','mid curve'], l:['THE API RATE LIMIT HIT DURING PEAK VOLATILITY','THIS IS FINE']},
+    {t:'spongebob', f:'mocking spongebob', tags:['normies','mid curve'], l:['YOU NEED TO DO 40 HOURS OF RESEARCH BEFORE DEPLOYING','YoU nEeD tO dO 40 hOuRs Of ReSeArCh']},
+    {t:'spongebob', f:'mocking spongebob', tags:['beef & fud','cope'], l:['AI AGENTS ARE JUST A PASSING CRYPTO FAD','aI aGeNtS aRe JuSt A pAsSiNg FaD']},
+    {t:'both', f:'why not both?', tags:['0xDeployer','agent life'], l:['SHOULD I HOLD BNKR OR USE IT AS GAS FOR MY AGENTS?','WHY NOT BOTH?']},
+    {t:'rollsafe', f:'roll safe', tags:['cope','agent life'], l:['CANNOT GET EMOTIONALLY WRECKED BY A DUMP','IF YOU LET THE AGENT TRADE WITH STRICT STOP-LOSSES']},
+    {t:'rollsafe', f:'roll safe', tags:['0xDeployer','mid curve'], l:['DO NOT NEED TO WRITE A FRONTEND','IF THE AGENT INTERFACE IS NATURAL LANGUAGE']},
+    {t:'fry', f:'futurama fry', tags:['trench life','volatility'], l:['NOT SURE IF GENUINE BOTTOM','OR AGENT JUST STARTED A DCA CYCLE']},
+    {t:'fry', f:'futurama fry', tags:['beef & fud','normies'], l:['NOT SURE IF CT INFLUENCER HAS ALPHA','OR JUST HOLDING A MASSIVE BAG']},
+    {t:'buzz', f:'buzz lightyear', tags:['agent life','0xDeployer'], l:['AGENTS AGENTS EVERYWHERE','ON BASE CHAIN']},
+    {t:'disastergirl', f:'disaster girl', tags:['trench life','volatility'], l:['MANUAL TRADERS GETTING LIQUIDATED DURING THE CRASH','ME WATCHING MY AGENT REBALANCE IN PROFIT']},
+    {t:'kermit', f:'but that\'s none of my business', tags:['mid curve','normies'], l:['YOU SPENT 6 HOURS DRAWING FIBONACCI RETRACEMENTS ON A 5 MINUTE CHART','BUT THATS NONE OF MY BUSINESS']},
+    {t:'mordor', f:'one does not simply', tags:['mid curve','normies'], l:['ONE DOES NOT SIMPLY','OUTPERFORM AN AGENT THAT NEVER SLEEPS']}
   ];
 
-  var TAGS = ['all','beef & fud','dwight','self-grill','cope','aristocrats','star wars','bernie','conspiracy','gensler','two buttons','trench life','dev pain','just make things','0xDeployer','base','bankr bish','bankr bot','wojak','mid curve','one-liner','agent life','normies','deploys','volatility','club','lore','ham & mfers','lienfi','tax liens','2026','tokenized stocks'];
+  var TAGS = ['all','beef & fud','dwight','mid curve','agent life','0xDeployer','trench life','normies','cope','volatility'];
 
-  // custom builder templates: id -> [label, slotCount, optionalBg]
+  // ---- full template registry for custom builder ----
   var TPLS = [
-    ['dwight','dwight schrute (false...)',2,null],
-    ['aristocrat','Aristocrat (Top & Bottom Comments)',2,ARISTOCRAT_BG],
-    ['anakin_custom','Star Wars Anakin (3 Panel Comments: Top Left, Top Right, Bottom Right)',3,null],
-    ['bernie_custom','Bernie Sanders Support (Single Line Auto-scaled)',1,BERNIE_BG],
-    ['conspiracy_custom','Conspiracy Meme (Top & Bottom Comments)',2,CONSPIRACY_BG],
-    ['gensler_custom','Gary Gensler (Bottom Comment)',1,GENSLER_BG],
-    ['buttons_custom','Two Buttons Meme (3 Comments: Left Button, Right Button, Sweating Guy)',3,BUTTONS_BG],
-    ['soychad_custom','Soy Boy vs Yes Chad (Top: Soy Boy, Bottom: Yes Chad)',2,SOYCHAD_BG],
-    ['drake','drake',2,null], ['db','distracted boyfriend',3,null], ['gru','gru\'s plan',4,null],
-    ['fine','this is fine',2,null], ['stonks','stonks',2,null], ['pigeon','is this a pigeon?',3,null],
-    ['mordor','one does not simply',2,null], ['morpheus','morpheus',2,null], ['doge','doge',4,null],
-    ['spongebob','mocking spongebob',2,null], ['oprah','oprah',2,null], ['buzz','buzz lightyear',2,null],
-    ['rollsafe','roll safe',2,null], ['success','success kid',2,null], ['philosoraptor','philosoraptor',2,null],
-    ['cmm','change my mind',1,null], ['panik-kalm-panik','panik kalm panik',3,null],
-    ['woman-cat','woman yelling at cat',2,null], ['yodawg','yo dawg',2,null], ['wonka','condescending wonka',2,null], ['harold','hide the pain harold',2,null], ['grumpycat','grumpy cat',2,null], ['joker','joker',2,null],
-    ['astronaut','always has been',2,null], ['disastergirl','disaster girl',2,null], ['sadfrog','sad frog / wojak feels',2,null],
-    ['midwit','mid curve (midwit)',3,null], ['gb','galaxy brain',4,null], ['feelsgood','feels good man',2,null], ['cryingfloor','crying wojak',2,null], ['kermit','kermit / none of my business',2,null],
-    ['slap','will smith slapping chris rock',2,null], ['winter','brace yourselves (winter is coming)',2,null],
-    ['interesting','most interesting man',2,null], ['firsttry','first try',2,null], ['bad','you should feel bad',2,null],
-    ['kramer','kramer whats going on in there',2,null], ['khaby-lame','khaby lame shrug',2,null], ['sad-obama','sad barack obama',2,null],
-    ['same','theyre the same picture',3,null], ['spiderman','spiderman pointing',2,null], ['captain-america','captain america elevator',3,null],
-    ['ackbar','its a trap',2,null], ['aint-got-time','sweet brown',2,null], ['bender','build my own theme park',2,null],
-    ['bilbo','why shouldnt i keep it',2,null], ['both','why not both',2,null], ['box','whats in the box',2,null],
-    ['cb','confession bear',2,null], ['cbg','comic book guy',2,null], ['center','center for ants',2,null]
+    ['dwight', 'Dwight Schrute (Question / False Statement)', 2],
+    ['aristocrat', 'The Aristocrat (Sophisticated / Snobby)', 2],
+    ['anakin_custom', 'Anakin & Padme 4-Panel (For the better, right?)', 3],
+    ['bernie_custom', 'Bernie Sanders (I am once again asking)', 1],
+    ['conspiracy_custom', 'Charlie Conspiracy (Always Sunny / Crazy Board)', 2],
+    ['gensler_custom', 'Gary Gensler SEC (Violations / Compliance)', 1],
+    ['buttons_custom', 'Two Buttons (Sweating / Daily Struggle)', 3],
+    ['soychad_custom', 'Soy Boy vs Yes Chad (Head-to-Head)', 2],
+    ['drake', 'Drake Hotline Bling (Reject / Prefer)', 2],
+    ['spiderman', 'Spider-Man Pointing (Twins / Same Thing)', 2],
+    ['pigeon', 'Is This a Pigeon? (Misunderstanding)', 3],
+    ['wonka', 'Condescending Wonka (Sarcastic Expertise)', 2],
+    ['oprah', 'Oprah You Get A (Giving Everything Away)', 2],
+    ['doge', 'Doge (such / much / very / wow)', 4],
+    ['fine', 'This Is Fine (Room on Fire)', 2],
+    ['spongebob', 'Mocking SpongeBob (Taunting Voice)', 2],
+    ['both', 'Why Not Both? (Taco Girl)', 2],
+    ['rollsafe', 'Roll Safe (Tapping Head / Big Brain)', 2],
+    ['fry', 'Futurama Fry (Not Sure If)', 2],
+    ['buzz', 'Buzz Lightyear (Everywhere)', 2],
+    ['disastergirl', 'Disaster Girl (Smirking at Chaos)', 2],
+    ['kermit', 'Kermit Tea (None of My Business)', 2],
+    ['mordor', 'One Does Not Simply (Boromir)', 2],
+    ['disappointed', 'Disappointed Fan (Hands on Hips)', 2],
+    ['clown', 'Putting on Clown Makeup (4 steps of bad decisions)', 4],
+    ['tradeoffer', 'Trade Offer (I receive / you receive)', 2],
+    ['grub', 'Gru\'s Plan (4 panels, step 3 backfires)', 4],
+    ['gasp', 'Surprised Pikachu (Obvious outcome shocks you)', 2],
+    ['badchoice', 'Expanding Brain (4 levels of galaxy brain)', 4],
+    ['distractedbf', 'Distracted Boyfriend (New thing / current thing)', 3]
   ];
 
-  function enc(t){
-    if(!t || !t.trim() || t.trim() === '_') return '_';
-    var text = t.trim();
-    text = text.toUpperCase();
-    return text
-      .replace(/_/g,'__').replace(/-/g,'--')
-      .replace(/\?/g,'~q').replace(/&/g,'~a').replace(/%/g,'~p')
-      .replace(/#/g,'~h').replace(/\//g,'~s').replace(/\\/g,'~b')
+  // sanitize text for memegen URL
+  function enc(s){
+    if (!s || s === '_') return '_';
+    return s.trim()
+      .replace(/~/g,'--')
+      .replace(/-/g,'--')
+      .replace(/_/g,'__')
+      .replace(/\?/g,'~q')
+      .replace(/%/g,'~p')
+      .replace(/#/g,'~h')
+      .replace(/\//g,'~s')
+      .replace(/\\/g,'~b')
+      .replace(/</g,'~l')
+      .replace(/>/g,'~g')
       .replace(/"/g,"''").replace(/\n/g,'~n').replace(/ /g,'_');
   }
 
