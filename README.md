@@ -6,6 +6,7 @@
 - **Curated Meme Pool**: Instant random drops across 100+ formats (Drake, Distracted Boyfriend, Gru's Plan, This Is Fine, Galaxy Brain, Wojak, and more).
 - **Topic Filters**: Filter memes by topic — `agent life`, `deploys`, `volatility`, `club`, `lore`, `ham & mfers`, `beef & fud`, `base`, `wojak`, `self-grill`, `cope`, `trench life`, `dev pain`, `just make things`, `0xDeployer`, `lienfi`, `tax liens`, `tokenized stocks`, and `2026`.
 - **Custom Builder**: Select from 50+ custom meme templates and generate custom multi-line text memes on demand.
+- **Live Preview & Draggable Text (Custom Builder)**: See the selected template with your text rendered on it before you generate. Drag any text box to reposition it (mouse or touch), double-click a box to snap it back to its default spot, or hit reset positions to restore all. "Save as image" exports a PNG from your exact placement; the render button still produces the original memegen link.
 - **One-Click Actions**: Easily copy image links, captions, open full-size renders, or remix directly in chat.
 
 ## Meme Categories
