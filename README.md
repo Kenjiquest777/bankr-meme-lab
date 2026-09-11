@@ -1,10 +1,10 @@
 # Bankr Meme Lab
 
-**Bankr Meme Lab** is a post-ready meme generator app themed around Bankr, $BNKR, and the Base agentic economy.
+**Bankr Meme Lab** is a post-ready meme generator app themed around Bankr, $BNKR, Bankr Club, and the Base agentic economy.
 
 ## Features
 - **Curated Meme Pool**: Instant random drops across 100+ formats (Drake, Distracted Boyfriend, Gru's Plan, This Is Fine, Galaxy Brain, Wojak, and more).
-- **Topic Filters**: Filter memes by topic — `agent life`, `deploys`, `volatility`, `club`, `lore`, `ham & mfers`, `beef & fud`, `base`, `wojak`, `self-grill`, `cope`, `trench life`, `dev pain`, `just make things`, `0xDeployer`, `lienfi`, `tax liens`, `tokenized stocks`, and `2026`.
+- **Topic Filters**: Filter memes by topic — `agent life`, `deploys`, `volatility`, `club`, `lore`, `ham & mfers`, `beef & fud`, `base`, `wojak`, `self-grill`, `cope`, `trench life`, `dev pain`, `just make things`, `0xDeployer`, `lienfi`, `tax liens`, `tokenized stocks`, `2026`, `top 500`, and `airdrops`.
 - **Custom Builder**: Select from 50+ custom meme templates and generate custom multi-line text memes on demand.
 - **Live Preview & Draggable Text (Custom Builder)**: See the selected template with your text rendered on it before you generate. Drag any text box to reposition it (mouse or touch), double-click a box to snap it back to its default spot, or hit reset positions to restore all. "Save as image" exports a PNG from your exact placement; the render button still produces the original memegen link.
 - **One-Click Actions**: Easily copy image links, captions, open full-size renders, or remix directly in chat.
@@ -19,6 +19,7 @@
 - **LienFi / Tax Liens ($LFI)** — Drake, Change My Mind, Morpheus, This Is Fine, Always Has Been, Success Kid, Philosoraptor, Woman Yelling at Cat, Stonks, Midwit, Star Wars Anakin, Roll Safe, Galaxy Brain, Hide the Pain Harold, Doge.
 - **2026 Trending: Agentic Economy & Tokenized Stocks** — Panik Kalm Panik, Condescending Wonka, Is This a Pigeon?, One Does Not Simply, Grumpy Cat, Feels Good Man.
 - **2026 Trending: New Templates** — Will Smith Slap, Brace Yourselves, Most Interesting Man, First Try, You Should Feel Bad, Kramer, Khaby Lame, Sad Obama, They're the Same Picture, Spiderman Pointing, Captain America Elevator, It's a Trap, Sweet Brown, Bender, Bilbo, Why Not Both, What's in the Box, Confession Bear, Comic Book Guy, Center for Ants.
+- **Bankr Club & Top-500 Airdrops** — Success Kid, Drake, Gru's Plan, Mid Curve, Woman Yelling at Cat, Distracted Boyfriend, Always Has Been, This Is Fine, Mocking SpongeBob, Leo Cheers, Philosoraptor, Hide the Pain Harold, Stonks, Roll Safe, Buzz Lightyear, Oprah, One Does Not Simply, Morpheus, Kermit, Panik Kalm Panik, Galaxy Brain, Joker, Why Not Both, Sad Obama, Spiderman Pointing, First Try, Most Interesting Man, Confession Bear, Condescending Wonka, It's a Trap, They're the Same Picture, Khaby Lame, Doge, Aristocrats.
 
 ## Custom Template Breakdowns
 - **Aristocrat**: Top and bottom comment sections.
